@@ -1,7 +1,8 @@
 ﻿using Configuration;
 using Entities.Drivers;
+using Entities.FantasyData;
 
-namespace Services.FantasyData.CSV
+namespace Services.FantasyServices.CSV
 {
 	/// <summary>
 	/// CSV based service to obtain driver data

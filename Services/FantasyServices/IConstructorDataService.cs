@@ -1,6 +1,6 @@
 ﻿using Entities.Constructors;
 
-namespace Services.FantasyData
+namespace Services.FantasyServices
 {
 	/// <summary>
 	/// Gets race week result data for constructors

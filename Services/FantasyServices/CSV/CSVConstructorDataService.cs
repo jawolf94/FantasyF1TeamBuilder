@@ -1,7 +1,8 @@
 ﻿using Configuration;
+using Entities.FantasyData;
 using Entities.Constructors;
 
-namespace Services.FantasyData.CSV
+namespace Services.FantasyServices.CSV
 {
 	/// <summary>
 	/// CSV based service to obtain constructor data

@@ -1,4 +1,4 @@
-﻿namespace Services.FantasyData
+﻿namespace Services.FantasyServices
 {
 	/// <summary>
 	/// Gets fantasy F1 data for multiple raceweeks

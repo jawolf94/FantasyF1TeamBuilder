@@ -1,7 +1,7 @@
 ﻿using Entities.Constructors;
 using Entities.Drivers;
 
-namespace Services.FantasyData
+namespace Services.FantasyServices
 {
 	/// <summary>
 	/// Service which loads IResultData from a CSV file.

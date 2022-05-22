@@ -1,6 +1,6 @@
 ﻿using Entities.Drivers;
 
-namespace Services.FantasyData
+namespace Services.FantasyServices
 {
 	/// <summary>
 	/// Gets race week result data for drivers

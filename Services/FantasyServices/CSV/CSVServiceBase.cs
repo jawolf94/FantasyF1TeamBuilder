@@ -2,7 +2,7 @@
 using Entities.FantasyData;
 using System.Configuration;
 
-namespace Services.FantasyData.CSV
+namespace Services.FantasyServices.CSV
 {
 	/// <summary>
 	/// Base class for CSV data services.
