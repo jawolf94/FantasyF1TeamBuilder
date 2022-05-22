@@ -1,6 +1,5 @@
-﻿using Entities;
-using Microsoft.Extensions.Configuration;
-using System.Configuration;
+﻿using Entities.Constructors;
+using Entities.Drivers;
 
 namespace Services.CSV
 {
@@ -22,13 +21,13 @@ namespace Services.CSV
         }
 
         /// <inheritdoc />
-        public Task<List<IFantasyData>> GetConstructorData()
+        public Task<List<Constructor>> GetConstructorData()
         {
             return _constructorDataService.GetConstructorData();
         }
 
         /// <inheritdoc />
-        public Task<List<IFantasyData>> GetDriverData()
+        public Task<List<Driver>> GetDriverData()
         {
             return _driverDataService.GetDriverData();
         }

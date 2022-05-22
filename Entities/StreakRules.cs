@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Entities
 {
     /// <summary>
-    /// Constants for Fantasy Game rules regarding streaks.
+    /// Game rules for streaks.
     /// </summary>
     public static class StreakRules
     {

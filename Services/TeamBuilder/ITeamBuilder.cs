@@ -1,4 +1,6 @@
-﻿using Predictors;
+﻿using Entities;
+using Entities.Constructors;
+using Entities.Drivers;
 
 namespace Services.TeamBuilder
 {
@@ -10,7 +12,7 @@ namespace Services.TeamBuilder
         /// <summary>
         /// Optimizes a team using predicted driver and constructor data.
         /// </summary>
-        PredictedFantasyTeam OptimizeTeam(IReadOnlyList<PredictedFantasyScore> drivers,
-            IReadOnlyList<PredictedFantasyScore> constructors, decimal budget);
+        FantasyTeam OptimizeTeam(IReadOnlyList<Driver> drivers,
+            IReadOnlyList<Constructor> constructors, decimal budget);
     }
 }

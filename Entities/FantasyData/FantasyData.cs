@@ -1,8 +1,11 @@
 ﻿
-namespace Entities
+using Entities.Constructors;
+using Entities.Drivers;
+
+namespace Entities.FantasyData
 {
     /// <summary>
-    /// Fantasy data for a driver or constructor.
+    /// Fantasy data for a driver or constructor retrieved from the Fantasy F1 site.
     /// </summary>
     public class FantasyData : IFantasyData
     {
@@ -50,5 +53,17 @@ namespace Entities
         public FantasyData()
             : this("Unknown", Decimal.MaxValue, new List<int>(), 0, 0) 
         { }
+
+        /// <summary>
+        /// Converts <see cref="IFantasyData"/> into a <see cref="Driver"/> instance.
+        /// </summary>
+        public static Driver ToDriver(IFantasyData fantasyData) =>
+           new Driver(fantasyData.Name, fantasyData.Cost, fantasyData.QualifyingStreak, fantasyData.RaceStreak, fantasyData.RaceWeekPoints);
+
+        /// <summary>
+        /// Converts <see cref="IFantasyData"/> into a <see cref="Constructor"/> instance.
+        /// </summary>
+        public static Constructor ToConstructor(IFantasyData fantasyData) =>
+          new Constructor(fantasyData.Name, fantasyData.Cost, fantasyData.QualifyingStreak, fantasyData.RaceStreak, fantasyData.RaceWeekPoints);
     }
 }

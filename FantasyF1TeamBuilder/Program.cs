@@ -2,6 +2,7 @@
 using Configuration;
 using FantasyF1TeamBuilder;
 using Predictors;
+using Predictors.PredictedComponents;
 using Services.CSV;
 using Services.TeamBuilder;
 
@@ -20,15 +21,15 @@ var constructorPredictionEngine = PredictionEngineHelper.BuildConstructorPredict
 
 // Predict Scores
 var drivers = await resultService.GetDriverData();
-var driverPredictions = drivers.Select(d => new PredictedFantasyScore(d, driverPredictionEngine)).ToList();
+var driverPredictions = drivers.Select(d => new PredictedDriver(d, driverPredictionEngine)).ToList();
 
 var constructors = await resultService.GetConstructorData();
-var constructorPredictions = constructors.Select(c => new PredictedFantasyScore(c, constructorPredictionEngine)).ToList();
+var constructorPredictions = constructors.Select(c => new PredictedConstructor(c, constructorPredictionEngine)).ToList();
 
 // Build Team
 var teamOptimizer = new BruteForceTeamBuilder();
 var bestTeam = teamOptimizer.OptimizeTeam(driverPredictions, constructorPredictions, 100m);
 
 // Output results
-OutputHelper.PrintPredictedTeam(bestTeam);
+OutputHelper.PrintTeam(bestTeam);
 

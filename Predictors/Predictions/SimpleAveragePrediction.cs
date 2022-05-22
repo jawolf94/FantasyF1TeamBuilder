@@ -8,13 +8,13 @@ namespace Predictors.Predictions
     public class SimpleAveragePrediction : IPrediction
     {
         /// <inheritdoc />
-        public bool CanApply(IFantasyData fantasyData) => fantasyData.RaceWeekPoints.Count > 0;
+        public bool CanApply(TeamComponent teamComponent) => teamComponent.PreviousPointsScored.Count > 0;
 
         /// <inheritdoc />
-        public double PredictedPoints(IFantasyData fantasyData)
+        public double PredictedPoints(TeamComponent teamComponent)
         {
-            return CanApply(fantasyData)
-                ? fantasyData.RaceWeekPoints.Average()
+            return CanApply(teamComponent)
+                ? teamComponent.PreviousPointsScored.Average()
                 : 0;
         }
     }

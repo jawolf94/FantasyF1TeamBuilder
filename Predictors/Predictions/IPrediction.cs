@@ -10,11 +10,11 @@ namespace Predictors.Predictions
         /// <summary>
         /// Returns true if this prediction applies.
         /// </summary>
-        public bool CanApply(IFantasyData fantasyData);
+        public bool CanApply(TeamComponent teamComponent);
 
         /// <summary>
         /// Predicted number of points gained or lost.
         /// </summary>
-        public double PredictedPoints(IFantasyData fantasyData);
+        public double PredictedPoints(TeamComponent teamComponent);
     }
 }

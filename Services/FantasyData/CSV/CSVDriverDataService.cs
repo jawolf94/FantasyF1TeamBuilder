@@ -1,11 +1,6 @@
 ﻿using Configuration;
-using Entities;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Entities.Drivers;
+using Entities.FantasyData;
 
 namespace Services.CSV
 {
@@ -24,9 +19,13 @@ namespace Services.CSV
         protected override string ResustDataCategory => "Driver";
 
         /// <inheritdoc />
-        public Task<List<IFantasyData>> GetDriverData()
+        public Task<List<Driver>> GetDriverData()
         {
-            return Task.FromResult(LoadResultsData());
+            var driverData = LoadFantasyData()
+                .Select(FantasyData.ToDriver)
+                .ToList();
+
+            return Task.FromResult(driverData);
         }
     }
 }

@@ -1,15 +1,15 @@
-﻿using Entities;
+﻿using Entities.Constructors;
 
 namespace Services
 {
     /// <summary>
-    /// Gets raceweek result data for constructors
+    /// Gets race week result data for constructors
     /// </summary>
     public interface IConstructorDataService
     {
         /// <summary>
-        /// Gets an <see cref="IFantasyData"/> for each constructor.
+        /// Gets an <see cref="Constructor"/> entity for each constructor.
         /// </summary>
-        public Task<List<IFantasyData>> GetConstructorData();
+        public Task<List<Constructor>> GetConstructorData();
     }
 }

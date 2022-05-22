@@ -1,4 +1,6 @@
-﻿using Predictors;
+﻿using Entities;
+using Entities.Constructors;
+using Entities.Drivers;
 
 namespace Services.TeamBuilder
 {
@@ -8,10 +10,10 @@ namespace Services.TeamBuilder
     public class BruteForceTeamBuilder : ITeamBuilder
     {
         /// <inheritdoc />
-        public PredictedFantasyTeam OptimizeTeam(IReadOnlyList<PredictedFantasyScore> drivers,
-            IReadOnlyList<PredictedFantasyScore> constructors, decimal budget)
+        public FantasyTeam OptimizeTeam(IReadOnlyList<Driver> drivers,
+            IReadOnlyList<Constructor> constructors, decimal budget)
         {
-            var validTeams = new List<PredictedFantasyTeam>();
+            var validTeams = new List<FantasyTeam>();
             var loopCount = 0;
 
             for (int d1 = 0; d1 < drivers.Count - 4; d1++)
@@ -28,13 +30,14 @@ namespace Services.TeamBuilder
                                 {
                                     loopCount++;
 
-                                    var team = new PredictedFantasyTeam();
+                                    var team = new FantasyTeam(budget);
 
-                                    team.AddDriver(drivers[d1]);
-                                    team.AddDriver(drivers[d2]);
-                                    team.AddDriver(drivers[d3]);
-                                    team.AddDriver(drivers[d4]);
-                                    team.AddDriver(drivers[d5]);
+                                    team.AddDriver(drivers[d1].DeepCopy());
+                                    team.AddDriver(drivers[d2].DeepCopy());
+                                    team.AddDriver(drivers[d3].DeepCopy());
+                                    team.AddDriver(drivers[d4].DeepCopy());
+                                    team.AddDriver(drivers[d5].DeepCopy());
+
 
                                     team.Constructor = constructors[c];
 
@@ -49,7 +52,7 @@ namespace Services.TeamBuilder
                 }
             }
 
-            return validTeams.MaxBy(t => t.PredictedPoints) ?? throw new InvalidOperationException("No optimized team could be found");        
+            return validTeams.MaxBy(t => t.Points) ?? throw new InvalidOperationException("No optimized team could be found");        
         }
     }
 }

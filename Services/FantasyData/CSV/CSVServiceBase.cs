@@ -1,6 +1,5 @@
-﻿using Configuration;
-using Entities;
-using Microsoft.Extensions.Configuration;
+﻿
+using Entities.FantasyData;
 using System.Configuration;
 
 namespace Services.CSV
@@ -38,7 +37,7 @@ namespace Services.CSV
         /// <summary>
         /// Reads result data from a file as <see cref="IFantasyData"/>.
         /// </summary>
-        protected List<IFantasyData> LoadResultsData()
+        protected List<IFantasyData> LoadFantasyData()
         {
             // ToDo: Check if CSV is structured as expected
             return File.ReadAllLines(FilePath)

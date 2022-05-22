@@ -1,9 +1,9 @@
-﻿namespace Entities
+﻿namespace Entities.FantasyData
 {
     /// <summary>
-    /// Fantasy data for a driver or constructor
+    /// Fantasy data for a driver or constructor retrieved from Fantasy F1 site.
     /// </summary>
-    public interface IFantasyData 
+    public interface IFantasyData
     {
         /// <summary>
         /// Name of the driver or constructor

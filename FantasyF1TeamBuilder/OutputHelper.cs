@@ -1,4 +1,4 @@
-﻿using Predictors;
+﻿using Entities;
 
 namespace FantasyF1TeamBuilder
 {
@@ -10,17 +10,18 @@ namespace FantasyF1TeamBuilder
         /// <summary>
         /// Prints results for about a predicted team.
         /// </summary>
-        public static void PrintPredictedTeam(PredictedFantasyTeam team) 
+        public static void PrintTeam(FantasyTeam team) 
         {
-            Console.WriteLine($"Total Score: {team.PredictedPoints} --- Cost: ${team.Cost} \n");
+            Console.WriteLine($"Total Score: {team.Points} --- Cost: ${team.Cost} \n");
 
             Console.WriteLine("**** Constructor ****");
-            Console.WriteLine($"{team.Constructor.Name} | Predicted Points: {team.Constructor.PredictedPoints} \n");
+            Console.WriteLine($"{team.Constructor?.Name} | Predicted Points: {team.Constructor?.Points} \n");
 
             Console.WriteLine("**** Dirvers ****");
             foreach (var driver in team.Drivers)
             {
-                Console.WriteLine($"- {driver.Name} | Predicted Points: {driver.PredictedPoints}");
+                var driverName = driver.IsTurboDriver ? $"{driver.Name} (T)" : driver.Name;
+                Console.WriteLine($"- {driverName} | Predicted Points: {driver.Points}");
             }
         }
     }

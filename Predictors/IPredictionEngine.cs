@@ -10,6 +10,6 @@ namespace Predictors
         /// <summary>
         /// Predicts the total number of points gained/lost based on all applied predictions.
         /// </summary>
-        public double PredictPoints(IFantasyData fantasyData);
+        public double PredictPoints(TeamComponent fantasyData);
     }
 }

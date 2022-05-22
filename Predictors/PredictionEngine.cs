@@ -19,14 +19,14 @@ namespace Predictors
         }
 
         /// <inheritdoc />
-        public double PredictPoints(IFantasyData fantasyData)
+        public double PredictPoints(TeamComponent teamComponent)
         {
             var totalPoints = 0d;
             foreach (var predictor in _predictors)
             {
-                if (predictor.CanApply(fantasyData))
+                if (predictor.CanApply(teamComponent))
                 {
-                    totalPoints += predictor.PredictedPoints(fantasyData);
+                    totalPoints += predictor.PredictedPoints(teamComponent);
                 }
             }
 

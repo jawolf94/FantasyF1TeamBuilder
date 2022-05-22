@@ -1,11 +1,6 @@
 ﻿using Configuration;
-using Entities;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Entities.Constructors;
+using Entities.FantasyData;
 
 namespace Services.CSV
 {
@@ -26,9 +21,13 @@ namespace Services.CSV
         protected override string ResustDataCategory => "Constructor";
 
         /// <inheritdoc />
-        public Task<List<IFantasyData>> GetConstructorData()
+        public Task<List<Constructor>> GetConstructorData()
         {
-            return Task.FromResult(LoadResultsData());
+            var constructors = LoadFantasyData()
+                .Select(FantasyData.ToConstructor)
+                .ToList();
+
+            return Task.FromResult(constructors);
         }
     }
 }

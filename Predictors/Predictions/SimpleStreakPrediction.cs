@@ -10,12 +10,12 @@ namespace Predictors.Predictions
         private readonly int _requiredStreak;
         private readonly int _awarededPoints;
 
-        private Func<IFantasyData, int> _steakValueRetriever;
+        private Func<TeamComponent, int> _steakValueRetriever;
 
         /// <summary>
         /// Creates a new instance of <see cref="SimpleStreakPrediction"/>
         /// </summary>
-        public SimpleStreakPrediction(int requiredStreak, int awardedPoints, Func<IFantasyData, int> streakValueRetriever) 
+        public SimpleStreakPrediction(int requiredStreak, int awardedPoints, Func<TeamComponent, int> streakValueRetriever) 
         {
             _requiredStreak = requiredStreak;
             _awarededPoints = awardedPoints;
@@ -24,12 +24,12 @@ namespace Predictors.Predictions
         }
 
         /// <inheritdoc />
-        public bool CanApply(IFantasyData fantasyData) => _steakValueRetriever(fantasyData) + 1 == _requiredStreak;
+        public bool CanApply(TeamComponent teamComponent) => _steakValueRetriever(teamComponent) + 1 == _requiredStreak;
 
         /// <inheritdoc />
-        public double PredictedPoints(IFantasyData fantasyData)
+        public double PredictedPoints(TeamComponent teamComponent)
         {
-            if (CanApply(fantasyData))
+            if (CanApply(teamComponent))
             {
                 return _awarededPoints;
             }
