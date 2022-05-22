@@ -6,7 +6,7 @@ namespace Entities.Drivers;
 /// </summary>
 public enum DriverPointsModifier
 {
-    None,
-    Turbo,
-    Mega
+	None,
+	Turbo,
+	Mega
 }

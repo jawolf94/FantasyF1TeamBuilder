@@ -1,7 +1,5 @@
 ﻿using Configuration;
 using Entities.Constructors;
-using Entities.FantasyData;
-using Services.FantasyData;
 
 namespace Services.FantasyData.CSV
 {

@@ -1,6 +1,4 @@
-﻿using Entities;
-
-namespace Services.FantasyData
+﻿namespace Services.FantasyData
 {
 	/// <summary>
 	/// Gets fantasy F1 data for multiple raceweeks

@@ -1,7 +1,5 @@
 ﻿using Configuration;
 using Entities.Drivers;
-using Entities.FantasyData;
-using Services.FantasyData;
 
 namespace Services.FantasyData.CSV
 {
