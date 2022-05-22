@@ -1,15 +1,15 @@
 ﻿using Entities.Constructors;
 
-namespace Services
+namespace Services.FantasyData
 {
-    /// <summary>
-    /// Gets race week result data for constructors
-    /// </summary>
-    public interface IConstructorDataService
-    {
-        /// <summary>
-        /// Gets an <see cref="Constructor"/> entity for each constructor.
-        /// </summary>
-        public Task<List<Constructor>> GetConstructorData();
-    }
+	/// <summary>
+	/// Gets race week result data for constructors
+	/// </summary>
+	public interface IConstructorDataService
+	{
+		/// <summary>
+		/// Gets an <see cref="Constructor"/> entity for each constructor.
+		/// </summary>
+		public Task<List<Constructor>> GetConstructorData();
+	}
 }

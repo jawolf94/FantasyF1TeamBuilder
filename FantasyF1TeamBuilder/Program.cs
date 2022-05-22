@@ -3,7 +3,8 @@ using Configuration;
 using FantasyF1TeamBuilder;
 using Predictors;
 using Predictors.PredictedComponents;
-using Services.CSV;
+using Services.FantasyData;
+using Services.FantasyData.CSV;
 using Services.TeamBuilder;
 
 // Load configuration
