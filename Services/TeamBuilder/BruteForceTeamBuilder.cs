@@ -1,6 +1,7 @@
 ﻿using Entities;
 using Entities.Constructors;
 using Entities.Drivers;
+using System.Collections;
 
 namespace Services.TeamBuilder
 {
@@ -10,49 +11,73 @@ namespace Services.TeamBuilder
 	public class BruteForceTeamBuilder : ITeamBuilder
 	{
 		/// <inheritdoc />
-		public FantasyTeam OptimizeTeam(IReadOnlyList<Driver> drivers,
-			IReadOnlyList<Constructor> constructors, decimal budget)
+		public FantasyTeam OptimizeTeam(IReadOnlyList<Driver> drivers, IReadOnlyList<Constructor> constructors, decimal budget)
 		{
 			var validTeams = new List<FantasyTeam>();
 			var loopCount = 0;
 
-			for (int d1 = 0; d1 < drivers.Count - 4; d1++)
+			foreach (var driverCombination in PossibleDriverCombinations(drivers))
 			{
-				for (int d2 = d1 + 1; d2 < drivers.Count - 3; d2++)
+				foreach(var constructor in constructors)
 				{
-					for (int d3 = d2 + 1; d3 < drivers.Count - 2; d3++)
+					var fantasyTeam = new FantasyTeam(budget);
+
+					AddDriversToTeam(fantasyTeam, driverCombination);
+					fantasyTeam.Constructor = constructor;
+
+					if(fantasyTeam.IsValid)
 					{
-						for (int d4 = d3 + 1; d4 < drivers.Count - 1; d4++)
+						validTeams.Add(fantasyTeam);
+					}
+				}
+			}
+
+			Console.WriteLine($"{loopCount} teams evaluated.");
+
+			return validTeams.MaxBy(t => t.Points) ?? throw new InvalidOperationException("No optimized team could be found");
+		}
+
+		private static void AddDriversToTeam(FantasyTeam team, Driver[] drivers)
+		{
+			foreach (var driver in drivers)
+			{
+				team.AddDriver(driver.DeepCopy());
+			}
+		}
+
+		private static IEnumerable<Driver[]> PossibleDriverCombinations(IReadOnlyList<Driver> drivers)
+		{
+			if(drivers.Count < FantasyTeam.NumberOfRequiredDrivers)
+			{
+				// Not enough drivers - no combinations
+				yield break;
+			}
+
+
+			// Create all combinations of drivers of size 5
+			for(int d1 = 0; d1 < drivers.Count - 4; d1++)
+			{
+				for(int d2 = d1 + 1; d2 < drivers.Count - 3; d2++)
+				{
+					for(int d3 = d2 + 1; d3 < drivers.Count - 2; d3++)
+					{
+						for(int d4 = d3 + 1; d4 < drivers.Count - 1; d4++)
 						{
-							for (int d5 = d4 + 1; d5 < drivers.Count; d5++)
+							for(int d5 = d4 + 1; d5 < drivers.Count; d5++)
 							{
-								for (int c = 0; c < constructors.Count; c++)
+								yield return new Driver[]
 								{
-									loopCount++;
-
-									var team = new FantasyTeam(budget);
-
-									team.AddDriver(drivers[d1].DeepCopy());
-									team.AddDriver(drivers[d2].DeepCopy());
-									team.AddDriver(drivers[d3].DeepCopy());
-									team.AddDriver(drivers[d4].DeepCopy());
-									team.AddDriver(drivers[d5].DeepCopy());
-
-
-									team.Constructor = constructors[c];
-
-									if (team.Cost <= budget)
-									{
-										validTeams.Add(team);
-									}
-								}
+									drivers[d1],
+									drivers[d2],
+									drivers[d3],
+									drivers[d4],
+									drivers[d5]
+								};
 							}
 						}
 					}
 				}
 			}
-
-			return validTeams.MaxBy(t => t.Points) ?? throw new InvalidOperationException("No optimized team could be found");
 		}
 	}
 }
