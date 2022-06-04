@@ -85,12 +85,12 @@ namespace Entities
 			var underBudget = Cost <= Budget;
 
 			var oneTurboDriver = Drivers.Count(d => d.IsTurboDriver) == 1;
-			var onOrNoneMegaDriver = Drivers.Count(d => d.IsMegaDriver) <= 1;
+			var zeroOrOneMegaDriver = Drivers.Count(d => d.IsMegaDriver) <= 1;
 
 			var correctDriverCount = Drivers.Count == 5;
 			var hasConstructor = Constructor is not null;
 
-			return underBudget && oneTurboDriver && onOrNoneMegaDriver && correctDriverCount && hasConstructor;
+			return underBudget && oneTurboDriver && zeroOrOneMegaDriver && correctDriverCount && hasConstructor;
 		}
 	}
 }

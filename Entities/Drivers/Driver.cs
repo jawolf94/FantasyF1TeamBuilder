@@ -35,9 +35,19 @@ namespace Entities.Drivers
 		public bool IsTurboDriver => PointsModifier is DriverPointsModifier.Turbo;
 
 		/// <summary>
+		/// True if this Driver can be set as a valid turbo driver.
+		/// </summary>
+		public bool IsTurboDriverEligible => Cost < MaxTurboDriverCost && !IsMegaDriver;
+
+		/// <summary>
 		/// True if the driver is currently set as the mega driver.
 		/// </summary>
 		public bool IsMegaDriver => PointsModifier is DriverPointsModifier.Mega;
+
+		/// <summary>
+		/// True if this Driver can be set as a valid mega driver.
+		/// </summary>
+		public bool IsMegaDriverEligible => !IsTurboDriver;
 
 		/// <summary>
 		/// Creates a deep copy of this Driver instance.
@@ -53,9 +63,19 @@ namespace Entities.Drivers
 		/// <inheritdoc />
 		protected override bool IsEntityValid()
 		{
-			var onlyOnePointModifier = !(IsTurboDriver && IsMegaDriver);
+			var isValidTuboDriver = true;
+			if (IsTurboDriver)
+			{
+				isValidTuboDriver = IsTurboDriverEligible;
+			}
 
-			return onlyOnePointModifier;
+			var isValidMegaDriver = true;
+			if (IsMegaDriver)
+			{
+				isValidMegaDriver = IsMegaDriverEligible;
+			}
+
+			return isValidTuboDriver && isValidMegaDriver;
 		}
 
 		/// <summary>

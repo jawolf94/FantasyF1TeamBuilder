@@ -1,7 +1,6 @@
 ﻿using Entities;
 using Entities.Constructors;
 using Entities.Drivers;
-using System.Collections;
 
 namespace Services.TeamBuilder
 {
@@ -22,13 +21,17 @@ namespace Services.TeamBuilder
 				{
 					var fantasyTeam = new FantasyTeam(budget);
 
-					AddDriversToTeam(fantasyTeam, driverCombination);
+					fantasyTeam.AddDriversToTeam(driverCombination);
+					fantasyTeam.SetTurboDriver(TurboDriverSelector);
+
 					fantasyTeam.Constructor = constructor;
 
 					if(fantasyTeam.IsValid)
 					{
 						validTeams.Add(fantasyTeam);
 					}
+
+					loopCount++;
 				}
 			}
 
@@ -37,13 +40,9 @@ namespace Services.TeamBuilder
 			return validTeams.MaxBy(t => t.Points) ?? throw new InvalidOperationException("No optimized team could be found");
 		}
 
-		private static void AddDriversToTeam(FantasyTeam team, Driver[] drivers)
-		{
-			foreach (var driver in drivers)
-			{
-				team.AddDriver(driver.DeepCopy());
-			}
-		}
+		private Driver? TurboDriverSelector(IReadOnlyList<Driver> drivers) => 
+			drivers.Where(d => d.IsTurboDriverEligible)
+				   .MaxBy(d => d.Points);
 
 		private static IEnumerable<Driver[]> PossibleDriverCombinations(IReadOnlyList<Driver> drivers)
 		{

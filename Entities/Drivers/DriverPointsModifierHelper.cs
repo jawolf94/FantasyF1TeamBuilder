@@ -7,6 +7,11 @@ namespace Entities.Drivers
 	public static class DriverPointsModifierHelper
 	{
 		/// <summary>
+		/// Maximum cost of a driver to be an eligible turbo driver.
+		/// </summary>
+		public const decimal MaxTurboDriverCost = 19.9m;
+
+		/// <summary>
 		/// Maps a <see cref="DriverPointsModifier"/> to the it's mulitplier.
 		/// </summary>
 		public static int GetAppliedModifier(DriverPointsModifier pointsModifier)
