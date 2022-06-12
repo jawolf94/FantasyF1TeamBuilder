@@ -11,6 +11,9 @@ using Services.TeamBuilder;
 var configuration = new ApplicationConfiguration();
 var resultSettings = configuration.ResultSettings;
 
+// Prompt User for Team Budget
+var budget = ConsoleHelper.PromptForBudget();
+
 // Get Fantasy Data
 var constructorService = new CSVConstructorDataService(resultSettings);
 var driverDataService = new CSVDriverDataService(resultSettings);
@@ -29,8 +32,8 @@ var constructorPredictions = constructors.Select(c => new PredictedConstructor(c
 
 // Build Team
 var teamOptimizer = new BruteForceTeamBuilder();
-var bestTeam = teamOptimizer.OptimizeTeam(driverPredictions, constructorPredictions, 100m);
+var bestTeam = teamOptimizer.OptimizeTeam(driverPredictions, constructorPredictions, budget);
 
 // Output results
-OutputHelper.PrintTeam(bestTeam);
+ConsoleHelper.PrintTeam(bestTeam);
 
