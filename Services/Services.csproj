@@ -15,7 +15,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Configuration\Configuration.csproj" />
     <ProjectReference Include="..\Entities\Entities.csproj" />
-    <ProjectReference Include="..\Predictors\Predictors.csproj" />
   </ItemGroup>
 
 </Project>

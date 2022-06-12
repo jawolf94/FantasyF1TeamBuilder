@@ -1,5 +1,6 @@
 # Project specific ignore
 Results/*
+SampleJSON/*
 *.dev.json
 
 # DotNet Core ignore
