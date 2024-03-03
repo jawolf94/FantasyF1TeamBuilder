@@ -37,51 +37,12 @@ namespace Entities.Drivers
 		/// <summary>
 		/// True if this Driver can be set as a valid turbo driver.
 		/// </summary>
-		public bool IsTurboDriverEligible => Cost < MaxTurboDriverCost && !IsMegaDriver;
-
-		/// <summary>
-		/// True if the driver is currently set as the mega driver.
-		/// </summary>
-		public bool IsMegaDriver => PointsModifier is DriverPointsModifier.Mega;
-
-		/// <summary>
-		/// True if this Driver can be set as a valid mega driver.
-		/// </summary>
-		public bool IsMegaDriverEligible => !IsTurboDriver;
+		public bool IsTurboDriverEligible => Cost < MaxTurboDriverCost;
 
 		/// <summary>
 		/// Creates a deep copy of this Driver instance.
 		/// </summary>
-		public Driver DeepCopy() => DeepCopyInternal();
-
-		/// <inheritdoc />
-		protected override double ApplyPointsModifiers(double points)
-		{
-			return points * GetAppliedModifier(PointsModifier);
-		}
-
-		/// <inheritdoc />
-		protected override bool IsEntityValid()
-		{
-			var isValidTuboDriver = true;
-			if (IsTurboDriver)
-			{
-				isValidTuboDriver = IsTurboDriverEligible;
-			}
-
-			var isValidMegaDriver = true;
-			if (IsMegaDriver)
-			{
-				isValidMegaDriver = IsMegaDriverEligible;
-			}
-
-			return isValidTuboDriver && isValidMegaDriver;
-		}
-
-		/// <summary>
-		/// Internal implementation for creating a deep copy of this instance.
-		/// </summary>
-		protected virtual Driver DeepCopyInternal()
+		public virtual Driver DeepCopy() 
 		{
 			var other = new Driver(Name, Cost, BasePoints, QualifyingStreak, RaceStreak, PreviousPointsScored)
 			{
@@ -90,5 +51,14 @@ namespace Entities.Drivers
 
 			return other;
 		}
+
+		/// <inheritdoc />
+		protected override double ApplyPointsModifiers(double points)
+		{
+			return points * GetAppliedModifier(PointsModifier);
+		}
+
+		/// <inheritdoc />
+		protected override bool IsEntityValid() => true;
 	}
 }

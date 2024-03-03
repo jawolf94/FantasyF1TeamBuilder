@@ -11,12 +11,12 @@
 		public const string Section = "results";
 
 		/// <summary>
-		/// Specifies how to get results for driver data.
+		/// Specifies where to get results for driver data.
 		/// </summary>
 		public string DriverResults { get; set; } = string.Empty;
 
 		/// <summary>
-		/// Specifies how to get results for constructor data.
+		/// Specifies where to get results for constructor data.
 		/// </summary>
 		public string ConstructorResults { get; set; } = string.Empty;
 	}

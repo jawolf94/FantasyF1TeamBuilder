@@ -14,9 +14,13 @@ namespace FantasyF1TeamBuilder
 		{
 			Console.WriteLine($"Total Score: {team.Points} --- Cost: ${team.Cost} \n");
 
-			Console.WriteLine("**** Constructor ****");
-			Console.WriteLine($"{team.Constructor?.Name} | Predicted Points: {team.Constructor?.Points} \n");
+			Console.WriteLine("**** Constructors ****");
+			foreach(var constructor in team.Constructors) 
+			{
+				Console.WriteLine($"{constructor.Name} | Predicted Points: {constructor.Points}");
+			}
 
+			Console.WriteLine();
 			Console.WriteLine("**** Dirvers ****");
 			foreach (var driver in team.Drivers)
 			{

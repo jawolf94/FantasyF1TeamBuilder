@@ -17,16 +17,16 @@ namespace Services.TeamBuilder
 
 			foreach (var driverCombination in PossibleDriverCombinations(drivers))
 			{
-				foreach(var constructor in constructors)
+				foreach(var constructorCombination in PossibleConstructorCombinations(constructors))
 				{
 					var fantasyTeam = new FantasyTeam(budget);
 
 					fantasyTeam.AddDriversToTeam(driverCombination);
 					fantasyTeam.SetTurboDriver(TurboDriverSelector);
 
-					fantasyTeam.Constructor = constructor;
+					fantasyTeam.AddConstructorsToTeam(constructorCombination);
 
-					if(fantasyTeam.IsValid)
+					if (fantasyTeam.IsValid)
 					{
 						validTeams.Add(fantasyTeam);
 					}
@@ -75,6 +75,28 @@ namespace Services.TeamBuilder
 							}
 						}
 					}
+				}
+			}
+		}
+
+		private static IEnumerable<Constructor[]> PossibleConstructorCombinations(IReadOnlyList<Constructor> constructors) 
+		{
+			if (constructors.Count < FantasyTeam.NumberOfRequiredConstructors) 
+			{
+				// Not enough constructors - no combinations
+				yield break;
+			}
+
+			// Create all combinations of constuctor pairs
+			for (int c1 = 0; c1 < constructors.Count - 1; c1++) 
+			{
+				for (int c2 = c1 + 1; c2 < constructors.Count; c2++) 
+				{
+					yield return new Constructor[]
+					{
+						constructors[c1],
+						constructors[c2]
+					};
 				}
 			}
 		}

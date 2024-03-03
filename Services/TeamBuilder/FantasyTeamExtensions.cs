@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Entities.Constructors;
 using Entities.Drivers;
 
 namespace Services.TeamBuilder
@@ -16,6 +17,17 @@ namespace Services.TeamBuilder
 			foreach(var driver in drivers)
 			{
 				team.AddDriver(driver.DeepCopy());
+			}
+		}
+
+		/// <summary>
+		/// Adds a list of drivers to the FantasyTeam.
+		/// </summary>
+		internal static void AddConstructorsToTeam(this FantasyTeam team, IReadOnlyList<Constructor> constructors)
+		{
+			foreach (var constructor in constructors)
+			{
+				team.AddConstructor(constructor.DeepCopy());
 			}
 		}
 

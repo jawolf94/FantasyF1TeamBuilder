@@ -15,6 +15,11 @@ namespace Entities
 		public const int NumberOfRequiredDrivers = 5;
 
 		/// <summary>
+		/// Number of drivers allowed per team.
+		/// </summary>
+		public const int NumberOfRequiredConstructors = 2;
+
+		/// <summary>
 		/// Creates a new instance of <see cref="FantasyTeam"/>
 		/// </summary>
 		public FantasyTeam(decimal budget)
@@ -27,20 +32,17 @@ namespace Entities
 		/// </summary>
 		public IReadOnlyList<Driver> Drivers => InternalDrivers;
 
-		/// <summary>
-		/// The team's constructor
-		/// </summary>
-		public Constructor? Constructor { get; set; }
+		public IReadOnlyList<Constructor> Constructors => InternalConstructors;
 
 		/// <summary>
 		/// Total points scored by the team.
 		/// </summary>
-		public double Points => Drivers.Sum(d => d.Points) + ConstructorPoints;
+		public double Points => TotalDriverPoints + TotalConstructorPoints;
 
 		/// <summary>
 		/// Total cost of the team.
 		/// </summary>
-		public decimal Cost => Drivers.Sum(d => d.Cost) + ConstructorCost;
+		public decimal Cost => TotalDriverCost + TotalConstructorCost;
 
 		/// <inheritdoc />
 		public bool IsValid => IsTeamValid();
@@ -55,9 +57,17 @@ namespace Entities
 		/// </summary>
 		protected List<Driver> InternalDrivers { get; } = new List<Driver>();
 
-		private decimal ConstructorCost => Constructor?.Cost ?? 0;
+		protected List<Constructor> InternalConstructors { get; } = new List<Constructor>();
 
-		private double ConstructorPoints => Constructor?.Points ?? 0;
+		private double TotalDriverPoints => Drivers.Sum(d => d.Points);
+
+		private decimal TotalDriverCost => Drivers.Sum(d => d.Cost);
+
+
+		private double TotalConstructorPoints => InternalConstructors.Sum(c => c.Points);
+
+		private decimal TotalConstructorCost => InternalConstructors.Sum(c => c.Cost);
+
 
 		/// <summary>
 		/// Add a new driver to the team
@@ -73,9 +83,27 @@ namespace Entities
 		}
 
 		/// <summary>
+		/// Add a new driver to the team
+		/// </summary>
+		public void AddConstructor(Constructor constructor)
+		{
+			if (InternalConstructors.Count >= NumberOfRequiredConstructors)
+			{
+				throw new ArgumentOutOfRangeException(nameof(constructor), $"A team cannot have more than {NumberOfRequiredConstructors} constructors.");
+			}
+
+			InternalConstructors.Add(constructor);
+		}
+
+		/// <summary>
 		/// Remove a driver from the team.
 		/// </summary>
 		public void RemoveDriver(Driver driver) => InternalDrivers.Remove(driver);
+
+		/// <summary>
+		/// Remove a driver from the team.
+		/// </summary>
+		public void RemoveConstructor(Constructor constructor) => InternalConstructors.Remove(constructor);
 
 		/// <summary>
 		/// Returns true if this fantasy team is valid.
@@ -85,12 +113,11 @@ namespace Entities
 			var underBudget = Cost <= Budget;
 
 			var oneTurboDriver = Drivers.Count(d => d.IsTurboDriver) == 1;
-			var zeroOrOneMegaDriver = Drivers.Count(d => d.IsMegaDriver) <= 1;
 
-			var correctDriverCount = Drivers.Count == 5;
-			var hasConstructor = Constructor is not null;
+			var correctDriverCount = Drivers.Count == NumberOfRequiredDrivers;
+			var correctConstructorCount = Constructors.Count == NumberOfRequiredConstructors;
 
-			return underBudget && oneTurboDriver && zeroOrOneMegaDriver && correctDriverCount && hasConstructor;
+			return underBudget && oneTurboDriver && correctDriverCount && correctConstructorCount;
 		}
 	}
 }

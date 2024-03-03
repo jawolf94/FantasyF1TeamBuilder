@@ -8,8 +8,9 @@ namespace Entities.Drivers
 	{
 		/// <summary>
 		/// Maximum cost of a driver to be an eligible turbo driver.
+		/// In 2024 there is no maximum.
 		/// </summary>
-		public const decimal MaxTurboDriverCost = 19.9m;
+		public const decimal MaxTurboDriverCost = Decimal.MaxValue;
 
 		/// <summary>
 		/// Maps a <see cref="DriverPointsModifier"/> to the it's mulitplier.
@@ -20,7 +21,6 @@ namespace Entities.Drivers
 			{
 				DriverPointsModifier.None => 1,
 				DriverPointsModifier.Turbo => 2,
-				DriverPointsModifier.Mega => 3,
 				_ => throw new NotSupportedException($"Driver points modifier {pointsModifier} is not supported.")
 			};
 		}

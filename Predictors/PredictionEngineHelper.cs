@@ -1,5 +1,4 @@
 ﻿using Predictors.Predictions;
-using static Entities.StreakRules;
 
 namespace Predictors
 {
@@ -16,8 +15,6 @@ namespace Predictors
 			var driverPredictors = new List<IPrediction>
 			{
 				new SimpleAveragePrediction(),
-				new SimpleStreakPrediction(DriverQualifyingStreakRequirement, QualifyingStreakAwardedPoints, f => f.QualifyingStreak),
-				new SimpleStreakPrediction(DriverRaceStreakRequirement, RaceStreakAwardedPoints, f => f.RaceStreak)
 			};
 
 			return new PredictionEngine(driverPredictors);
@@ -31,8 +28,6 @@ namespace Predictors
 			var constructorPredictors = new List<IPrediction>
 			{
 				new SimpleAveragePrediction(),
-				new SimpleStreakPrediction(ConstructorQualifyingStreakRequirement, QualifyingStreakAwardedPoints, f => f.QualifyingStreak),
-				new SimpleStreakPrediction(ConstructorRaceStreakRequirement, RaceStreakAwardedPoints, f => f.RaceStreak)
 			};
 			return new PredictionEngine(constructorPredictors);
 		}
