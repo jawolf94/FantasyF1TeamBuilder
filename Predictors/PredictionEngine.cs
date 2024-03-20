@@ -1,7 +1,7 @@
-﻿using Entities;
-using Predictors.Predictions;
+﻿using Analytics.Predictions;
+using Results.Data;
 
-namespace Predictors
+namespace Analytics
 {
 	/// <summary>
 	/// Applies predictions to fantasy data.
@@ -19,14 +19,14 @@ namespace Predictors
 		}
 
 		/// <inheritdoc />
-		public double PredictPoints(TeamComponent teamComponent)
+		public double PredictPoints(RaceResults results)
 		{
 			var totalPoints = 0d;
 			foreach (var predictor in _predictors)
 			{
-				if (predictor.CanApply(teamComponent))
+				if (predictor.CanApply(results))
 				{
-					totalPoints += predictor.PredictedPoints(teamComponent);
+					totalPoints += predictor.PredictPoints(results);
 				}
 			}
 

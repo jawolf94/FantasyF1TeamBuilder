@@ -1,20 +1,19 @@
-﻿using Entities;
+﻿using Results.Data;
 
-namespace Predictors.Predictions
+namespace Analytics.Predictions;
+
+/// <summary>
+/// A prediction about fantasy data.
+/// </summary>
+public interface IPrediction
 {
 	/// <summary>
-	/// A prediction about fantasy data.
+	/// Returns true if this prediction applies.
 	/// </summary>
-	public interface IPrediction
-	{
-		/// <summary>
-		/// Returns true if this prediction applies.
-		/// </summary>
-		public bool CanApply(TeamComponent teamComponent);
+	public bool CanApply(RaceResults teamComponent);
 
-		/// <summary>
-		/// Predicted number of points gained or lost.
-		/// </summary>
-		public double PredictedPoints(TeamComponent teamComponent);
-	}
+	/// <summary>
+	/// Predicted number of points gained or lost.
+	/// </summary>
+	public double PredictPoints(RaceResults teamComponent);
 }

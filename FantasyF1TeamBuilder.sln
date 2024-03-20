@@ -5,11 +5,11 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FantasyF1TeamBuilder", "FantasyF1TeamBuilder\FantasyF1TeamBuilder.csproj", "{42294F10-42BB-4F0B-BCDC-29D7C6E5C422}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entities.csproj", "{2495C693-739B-4791-8660-5BC9E7BFD42C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fantasy", "Entities\Fantasy.csproj", "{2495C693-739B-4791-8660-5BC9E7BFD42C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{9A91151B-59F4-4A5B-8810-35251DD92C2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Results", "Services\Results.csproj", "{9A91151B-59F4-4A5B-8810-35251DD92C2E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Predictors", "Predictors\Predictors.csproj", "{9CB5EBF5-4092-4809-A27A-D964396EA86B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Analytics", "Predictors\Analytics.csproj", "{9CB5EBF5-4092-4809-A27A-D964396EA86B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Configuration", "Configuration\Configuration.csproj", "{8063A2B1-5303-4C27-9981-1545CEE0B7EE}"
 EndProject
@@ -17,6 +17,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{5C4D406B-33C5-460B-943A-BE8D513FB8AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Builders", "TeamBuilder\Builders.csproj", "{4DAF1331-6639-4288-8D7B-8B08F761759D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +48,14 @@ Global
 		{8063A2B1-5303-4C27-9981-1545CEE0B7EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8063A2B1-5303-4C27-9981-1545CEE0B7EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8063A2B1-5303-4C27-9981-1545CEE0B7EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C4D406B-33C5-460B-943A-BE8D513FB8AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C4D406B-33C5-460B-943A-BE8D513FB8AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C4D406B-33C5-460B-943A-BE8D513FB8AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C4D406B-33C5-460B-943A-BE8D513FB8AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DAF1331-6639-4288-8D7B-8B08F761759D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DAF1331-6639-4288-8D7B-8B08F761759D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DAF1331-6639-4288-8D7B-8B08F761759D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DAF1331-6639-4288-8D7B-8B08F761759D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,15 +1,14 @@
-﻿using Entities;
+﻿using Results.Data;
 
-namespace Predictors
+namespace Analytics;
+
+/// <summary>
+/// Engine to apply predictions
+/// </summary>
+public interface IPredictionEngine
 {
 	/// <summary>
-	/// Engine to apply predictions
+	/// Predicts the total number of points gained/lost based on all applied predictions.
 	/// </summary>
-	public interface IPredictionEngine
-	{
-		/// <summary>
-		/// Predicts the total number of points gained/lost based on all applied predictions.
-		/// </summary>
-		public double PredictPoints(TeamComponent fantasyData);
-	}
+	public double PredictPoints(RaceResults results);
 }

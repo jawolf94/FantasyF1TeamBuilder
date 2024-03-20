@@ -1,21 +1,20 @@
-﻿using Entities;
+﻿using Results.Data;
 
-namespace Predictors.Predictions
+namespace Analytics.Predictions;
+
+/// <summary>
+/// Predicted number of points earned based on a simple average.
+/// </summary>
+public class SimpleAveragePrediction : IPrediction
 {
-	/// <summary>
-	/// Predicted number of points earned based on a simple average.
-	/// </summary>
-	public class SimpleAveragePrediction : IPrediction
-	{
-		/// <inheritdoc />
-		public bool CanApply(TeamComponent teamComponent) => teamComponent.PreviousPointsScored.Count > 0;
+	/// <inheritdoc />
+	public bool CanApply(RaceResults results) => results.PreviousWeekScores.Count > 0;
 
-		/// <inheritdoc />
-		public double PredictedPoints(TeamComponent teamComponent)
-		{
-			return CanApply(teamComponent)
-				? teamComponent.PreviousPointsScored.Average()
-				: 0;
-		}
+	/// <inheritdoc />
+	public double PredictPoints(RaceResults results)
+	{
+		return CanApply(results)
+			? results.PreviousWeekScores.Average()
+			: 0;
 	}
 }

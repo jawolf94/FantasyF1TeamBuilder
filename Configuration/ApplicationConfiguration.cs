@@ -4,7 +4,7 @@ namespace Configuration
 {
 
 	/// <summary>
-	/// Loads this application configuration and provides access to configured sections.
+	/// Loads this application's configuration and provides access to configured sections.
 	/// </summary>
 	public class ApplicationConfiguration
 	{
@@ -19,16 +19,30 @@ namespace Configuration
 		}
 
 		/// <summary>
-		/// Gets the ResultSettings section from the config.
+		/// Gets the <see cref="FanatsySettings"/> section from the config.
 		/// </summary>
-		public ResultSettings ResultSettings
+		public FanatsySettings FantasySettings
 		{
 			get
 			{
-				var resultSettings = new ResultSettings();
-				Configuration.GetSection(ResultSettings.Section).Bind(resultSettings);
+				var resultSettings = new FanatsySettings();
+				Configuration.GetSection(FanatsySettings.Section).Bind(resultSettings);
 
 				return resultSettings;
+			}
+		}
+
+		/// <summary>
+		/// Gets the <see cref="StatisticsSettings"/> section from the config.
+		/// </summary>
+		public StatisticsSettings StatisticsSettings
+		{
+			get
+			{
+				var statisticSettings = new StatisticsSettings();
+				Configuration.GetSection(StatisticsSettings.Section).Bind(statisticSettings);
+
+				return statisticSettings;
 			}
 		}
 
@@ -40,7 +54,7 @@ namespace Configuration
 		/// <summary>
 		/// Creates a configuration builder.
 		/// </summary>
-		protected virtual IConfigurationBuilder GetConfigurationBuilder()
+		protected virtual IConfigurationBuilder CreateConfigurationBuilder()
 		{
 			return new ConfigurationBuilder()
 				.AddJsonFile("appsettings.json")
@@ -52,7 +66,7 @@ namespace Configuration
 		/// </summary>
 		private IConfigurationRoot BuildConfiguration()
 		{
-			var config = GetConfigurationBuilder();
+			var config = CreateConfigurationBuilder();
 			return config.Build();
 		}
 	}
