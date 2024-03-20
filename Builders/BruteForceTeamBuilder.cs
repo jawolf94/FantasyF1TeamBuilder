@@ -1,5 +1,4 @@
-﻿using Analytics;
-using Fantasy.Team;
+﻿using Fantasy.Team;
 
 namespace Builders;
 
