@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Entities\Fantasy.csproj" />
     <ProjectReference Include="..\Analytics\Analytics.csproj" />
+    <ProjectReference Include="..\Fantasy\Fantasy.csproj" />
   </ItemGroup>
 
 </Project>

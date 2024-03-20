@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Entities\Fantasy.csproj" />
     <ProjectReference Include="..\Services\Results.csproj" />
   </ItemGroup>
 
