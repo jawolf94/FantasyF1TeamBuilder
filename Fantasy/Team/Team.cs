@@ -13,7 +13,7 @@ public class Team : IValidatable
 	public const int NumberOfRequiredDrivers = 5;
 
 	/// <summary>
-	/// Number of drivers allowed per team.
+	/// Number of constructors allowed per team.
 	/// </summary>
 	public const int NumberOfRequiredConstructors = 2;
 
@@ -26,10 +26,13 @@ public class Team : IValidatable
 	}
 
 	/// <summary>
-	/// The team's drivers
+	/// The team's assigned drivers
 	/// </summary>
 	public IReadOnlyList<Driver> Drivers => InternalDrivers;
 
+	/// <summary>
+	/// The team's assigned constructors
+	/// </summary>
 	public IReadOnlyList<Constructor> Constructors => InternalConstructors;
 
 	/// <summary>
@@ -55,6 +58,9 @@ public class Team : IValidatable
 	/// </summary>
 	protected List<Driver> InternalDrivers { get; } = new List<Driver>();
 
+	/// <summary>
+	/// Internal list of constructors for modification
+	/// </summary>
 	protected List<Constructor> InternalConstructors { get; } = new List<Constructor>();
 
 	private double TotalDriverPoints => Drivers.Sum(d => d.TotalPoints);
@@ -68,7 +74,7 @@ public class Team : IValidatable
 
 
 	/// <summary>
-	/// Add a new driver to the team
+	/// Add a driver to the team.
 	/// </summary>
 	public void AddDriver(Driver driver)
 	{
@@ -81,7 +87,18 @@ public class Team : IValidatable
 	}
 
 	/// <summary>
-	/// Add a new driver to the team
+	/// Adds a list of drivers.
+	/// </summary>
+	public void AddDrivers(IReadOnlyList<Driver> drivers)
+	{
+		foreach (var driver in drivers)
+		{
+			AddDriver(driver);
+		}
+	}
+
+	/// <summary>
+	/// Add a constructor to the team.
 	/// </summary>
 	public void AddConstructor(Constructor constructor)
 	{
@@ -94,12 +111,23 @@ public class Team : IValidatable
 	}
 
 	/// <summary>
+	/// Adds a list of constructors.
+	/// </summary>
+	public void AddConstructors(IReadOnlyList<Constructor> constructors)
+	{
+		foreach (var constructor in constructors)
+		{
+			AddConstructor(constructor);
+		}
+	}
+
+	/// <summary>
 	/// Remove a driver from the team.
 	/// </summary>
 	public void RemoveDriver(Driver driver) => InternalDrivers.Remove(driver);
 
 	/// <summary>
-	/// Remove a driver from the team.
+	/// Remove a constructor from the team.
 	/// </summary>
 	public void RemoveConstructor(Constructor constructor) => InternalConstructors.Remove(constructor);
 

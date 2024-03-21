@@ -1,4 +1,6 @@
-﻿using Fantasy.Team;
+﻿using Common;
+using Fantasy.Rules;
+using Fantasy.Team;
 
 namespace Builders;
 
@@ -19,10 +21,10 @@ public class BruteForceTeamBuilder : ITeamBuilder
 			{
 				var fantasyTeam = new Team(budget);
 
-				fantasyTeam.AddDriversToTeam(driverCombination);
-				fantasyTeam.SetTurboDriver(TurboDriverSelector);
-
-				fantasyTeam.AddConstructorsToTeam(constructorCombination);
+				AddDriverCopiesToTeam(fantasyTeam, driverCombination);
+				AddConstructorCopiesToTeam(fantasyTeam, constructorCombination);
+				
+				SetHighestScoringEligibleDriverAsTurbo(fantasyTeam);
 
 				if (fantasyTeam.IsValid)
 				{
@@ -37,10 +39,29 @@ public class BruteForceTeamBuilder : ITeamBuilder
 
 		return validTeams.MaxBy(t => t.Points) ?? throw new InvalidOperationException("No optimized team could be found");
 	}
+	private static void SetHighestScoringEligibleDriverAsTurbo(Team team)
+	{
+		var bestEligibleDriver = team.Drivers
+			.Where(d => d.IsTurboDriverEligible)
+			.MaxBy(d => d.TotalPoints);
 
-	private Driver? TurboDriverSelector(IReadOnlyList<Driver> drivers) =>
-		drivers.Where(d => d.IsTurboDriverEligible)
-			   .MaxBy(d => d.TotalPoints);
+		if (bestEligibleDriver is not null)
+		{
+			bestEligibleDriver.PointsModifier = DriverPointsModifier.Turbo;
+		}
+	}
+
+	private static void AddDriverCopiesToTeam(Team team, IReadOnlyList<Driver> drivers) 
+	{
+		var driverCopies = drivers.Select(d => d.CloneAs<Driver>()).ToList();
+		team.AddDrivers(driverCopies);
+	}
+
+	private static void AddConstructorCopiesToTeam(Team team, IReadOnlyList<Constructor> constructors)
+	{
+		var constructorCopies = constructors.Select(d => d.CloneAs<Constructor>()).ToList();
+		team.AddConstructors(constructorCopies);
+	}
 
 	private static IEnumerable<Driver[]> PossibleDriverCombinations(IReadOnlyList<Driver> drivers)
 	{
