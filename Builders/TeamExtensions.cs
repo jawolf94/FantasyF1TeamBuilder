@@ -8,10 +8,12 @@ namespace Builders;
 /// </summary>
 internal static class TeamExtensions
 {
+	// ToDo: Move extension functionality to class
+
 	/// <summary>
 	/// Adds a list of drivers to the FantasyTeam.
 	/// </summary>
-	internal static void AddDriversToTeam(this Fantasy.Team.Team team, IReadOnlyList<Driver> drivers)
+	internal static void AddDriversToTeam(this Team team, IReadOnlyList<Driver> drivers)
 	{
 		foreach (var driver in drivers)
 		{
@@ -22,7 +24,7 @@ internal static class TeamExtensions
 	/// <summary>
 	/// Adds a list of drivers to the FantasyTeam.
 	/// </summary>
-	internal static void AddConstructorsToTeam(this Fantasy.Team.Team team, IReadOnlyList<Constructor> constructors)
+	internal static void AddConstructorsToTeam(this Team team, IReadOnlyList<Constructor> constructors)
 	{
 		foreach (var constructor in constructors)
 		{
@@ -33,7 +35,7 @@ internal static class TeamExtensions
 	/// <summary>
 	/// Sets the FantasyTeam's turbo driver based on the selection criteria.
 	/// </summary>
-	internal static void SetTurboDriver(this Fantasy.Team.Team team, Func<IReadOnlyList<Driver>, Driver?> selector)
+	internal static void SetTurboDriver(this Team team, Func<IReadOnlyList<Driver>, Driver?> selector)
 	{
 		var bestEligibleDriver = selector(team.Drivers);
 		if (bestEligibleDriver is not null)

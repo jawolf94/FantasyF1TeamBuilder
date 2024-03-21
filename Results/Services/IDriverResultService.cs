@@ -3,12 +3,12 @@
 namespace Results.Services;
 
 /// <summary>
-/// Gets statistics for F1 race results.
+/// Gets results for Drivers.
 /// </summary>
 public interface IDriverResultService
 {
 	/// <summary>
-	/// Returns statistical data from all competitive entrants. 
+	/// Returns result data for all Drivers.
 	/// </summary>
 	Task<List<DriverRaceResults>> GetResults();
 }

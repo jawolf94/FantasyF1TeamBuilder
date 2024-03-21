@@ -5,7 +5,7 @@ using Results.Data;
 namespace Results.Services;
 
 /// <summary>
-/// Loads statistical data from a csv file.
+/// Loads driver result data from a csv file.
 /// </summary>
 public class CSVDriverResultService : CSVReader<DriverRaceResults>, IDriverResultService
 {

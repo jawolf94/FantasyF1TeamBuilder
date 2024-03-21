@@ -1,5 +1,4 @@
-﻿
-using Fantasy.Team;
+﻿using Fantasy.Team;
 
 namespace FantasyF1TeamBuilder;
 

@@ -10,5 +10,5 @@ public interface IFantasyConstructorService
 	/// <summary>
 	/// Gets an <see cref="Constructor"/> entity for each constructor.
 	/// </summary>
-	public Task<List<Constructor>> GetConstructorData();
+	Task<List<Constructor>> GetConstructorData();
 }

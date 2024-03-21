@@ -5,7 +5,7 @@ using Results.Data;
 namespace Results.Services;
 
 /// <summary>
-/// Loads statistical data from a csv file.
+/// Loads constructor result data from a csv file.
 /// </summary>
 public class CSVConstructorResultService : CSVReader<ConstructorRaceResults>, IConstructorResultService
 {

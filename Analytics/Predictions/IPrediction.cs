@@ -10,10 +10,10 @@ public interface IPrediction
 	/// <summary>
 	/// Returns true if this prediction applies.
 	/// </summary>
-	public bool CanApply(RaceResults teamComponent);
+	bool CanApply(RaceResults teamComponent);
 
 	/// <summary>
 	/// Predicted number of points gained or lost.
 	/// </summary>
-	public double PredictPoints(RaceResults teamComponent);
+	double PredictPoints(RaceResults teamComponent);
 }

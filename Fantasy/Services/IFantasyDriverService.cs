@@ -10,5 +10,5 @@ public interface IFantasyDriverService
 	/// <summary>
 	/// Gets an <see cref="Driver"/> entity for each driver
 	/// </summary>
-	public Task<List<Driver>> GetDriverData();
+	Task<List<Driver>> GetDriverData();
 }
