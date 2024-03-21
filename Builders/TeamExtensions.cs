@@ -1,6 +1,8 @@
 ﻿using Fantasy.Rules;
 using Fantasy.Team;
 
+using static Common.CloneableExtensions;
+
 namespace Builders;
 
 /// <summary>
@@ -17,7 +19,7 @@ internal static class TeamExtensions
 	{
 		foreach (var driver in drivers)
 		{
-			team.AddDriver(driver.DeepCopy());
+			team.AddDriver(driver.CloneAs<Driver>());
 		}
 	}
 
@@ -28,7 +30,7 @@ internal static class TeamExtensions
 	{
 		foreach (var constructor in constructors)
 		{
-			team.AddConstructor(constructor.DeepCopy());
+			team.AddConstructor(constructor.CloneAs<Constructor>());
 		}
 	}
 

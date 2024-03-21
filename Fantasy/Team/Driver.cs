@@ -6,7 +6,7 @@ namespace Fantasy.Team;
 /// <summary>
 /// Represents a Driver on a fantasy team. 
 /// </summary>
-public class Driver : TeamComponent
+public class Driver : TeamComponent, ICloneable
 {
 
 	/// <summary>
@@ -39,18 +39,13 @@ public class Driver : TeamComponent
 	/// </summary>
 	public bool IsTurboDriverEligible => Cost < MaxTurboDriverCost;
 
-	/// <summary>
-	/// Creates a deep copy of this Driver instance.
-	/// </summary>
-	public virtual Driver DeepCopy()
+	/// <inheritdoc />
+	public object Clone()
 	{
-		//ToDo: Make this a helper method.
-		var other = new Driver(Name, Cost, BasePoints)
+		return new Driver(Name, Cost, BasePoints)
 		{
 			PointsModifier = PointsModifier
 		};
-
-		return other;
 	}
 
 	/// <inheritdoc />

@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents a constructor on a fantasy team.
 /// </summary>
-public class Constructor : TeamComponent
+public class Constructor : TeamComponent, ICloneable
 {
 	/// <summary>
 	/// Initializes a new instance of <see cref="Constructor"/>
@@ -22,12 +22,9 @@ public class Constructor : TeamComponent
 		BasePoints = points;
 	}
 
-	/// <summary>
-	/// Creates a copy of this Constructor.
-	/// </summary>
-	public virtual Constructor DeepCopy()
+	/// <inheritdoc />
+	public object Clone()
 	{
-		//ToDo: Make this a helper method.
 		return new Constructor(Name, Cost, BasePoints);
 	}
 
