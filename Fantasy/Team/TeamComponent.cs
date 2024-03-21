@@ -47,7 +47,7 @@ public abstract class TeamComponent : IValidatable
 	protected abstract bool IsEntityValid();
 
 	/// <summary>
-	/// Modifies the points scored accoring to the game rules.
+	/// Modifies the points scored according to the game rules.
 	/// </summary>
 	protected abstract double ApplyPointsModifiers(double points);
 }
