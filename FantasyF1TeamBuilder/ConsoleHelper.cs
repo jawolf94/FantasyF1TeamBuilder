@@ -5,12 +5,12 @@ namespace FantasyF1TeamBuilder;
 /// <summary>
 /// Provides helper methods to output program results
 /// </summary>
-public static class ConsoleHelper
+internal static class ConsoleHelper
 {
 	/// <summary>
 	/// Prints results for about a predicted team.
 	/// </summary>
-	public static void PrintTeam(Team team)
+	internal static void PrintTeam(Team team)
 	{
 		Console.WriteLine($"Total Score: {team.Points} --- Cost: ${team.Cost} \n");
 
@@ -32,7 +32,7 @@ public static class ConsoleHelper
 	/// <summary>
 	/// Prompts the user for the their team's current budget.
 	/// </summary>
-	public static decimal PromptForBudget()
+	internal static decimal PromptForBudget()
 	{
 		Console.WriteLine("Please enter your team's budget cap then press ENTER.");
 
