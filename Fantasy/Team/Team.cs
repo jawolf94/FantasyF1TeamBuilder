@@ -3,7 +3,7 @@
 namespace Fantasy.Team;
 
 /// <summary>
-/// Represents a team of drivers and a constructors
+/// Represents a team of drivers and constructors
 /// </summary>
 public class Team : IValidatable
 {
@@ -91,6 +91,12 @@ public class Team : IValidatable
 	/// </summary>
 	public void AddDrivers(IReadOnlyList<Driver> drivers)
 	{
+		var totalDriversAfterAdd = InternalDrivers.Count + drivers.Count;
+		if(totalDriversAfterAdd > NumberOfRequiredDrivers) 
+		{
+			throw new ArgumentOutOfRangeException(nameof(drivers), $"A team cannot have more than {NumberOfRequiredDrivers} drivers.");
+		}
+
 		foreach (var driver in drivers)
 		{
 			AddDriver(driver);
@@ -115,6 +121,12 @@ public class Team : IValidatable
 	/// </summary>
 	public void AddConstructors(IReadOnlyList<Constructor> constructors)
 	{
+		var totalConstructorsAfterAdd = InternalConstructors.Count + constructors.Count;
+		if (totalConstructorsAfterAdd > NumberOfRequiredConstructors) 
+		{
+			throw new ArgumentOutOfRangeException(nameof(constructors), $"A team cannot have more than {NumberOfRequiredConstructors} constructors.");
+		}
+
 		foreach (var constructor in constructors)
 		{
 			AddConstructor(constructor);
