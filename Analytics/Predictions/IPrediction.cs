@@ -3,7 +3,7 @@
 namespace Analytics.Predictions;
 
 /// <summary>
-/// A prediction about fantasy data.
+/// A prediction about future race results.
 /// </summary>
 public interface IPrediction
 {

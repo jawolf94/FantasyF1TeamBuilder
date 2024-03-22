@@ -8,7 +8,7 @@ namespace Fantasy.Services;
 public interface IFantasyDriverService
 {
 	/// <summary>
-	/// Gets an <see cref="Driver"/> entity for each driver
+	/// Gets all <see cref="Driver"/> driver components
 	/// </summary>
 	Task<List<Driver>> GetDriverData();
 }

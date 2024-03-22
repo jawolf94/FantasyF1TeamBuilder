@@ -29,7 +29,7 @@ public class CSVConstructorService : CSVReader<Constructor>, IFantasyConstructor
 	{
 		//ToDo: Add some error handling for CSV formatting
 
-		// Parse name and streak data
+		// Parse name and cost data
 		var name = row[0];
 		var cost = decimal.Parse(row[1]);
 

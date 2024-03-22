@@ -3,7 +3,7 @@
 namespace Fantasy.Team;
 
 /// <summary>
-/// Represents a team of drivers and a constructor
+/// Represents a team of drivers and a constructors
 /// </summary>
 public class Team : IValidatable
 {

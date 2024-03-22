@@ -37,7 +37,7 @@ public abstract class TeamComponent : IValidatable
 	public double TotalPoints => ApplyPointsModifiers(BasePoints);
 
 	/// <summary>
-	/// Fantasy points awareded before modifiers
+	/// Fantasy points awarded before modifiers
 	/// </summary>
 	public double BasePoints { get; set; }
 

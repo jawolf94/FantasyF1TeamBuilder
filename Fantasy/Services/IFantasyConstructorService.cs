@@ -8,7 +8,7 @@ namespace Fantasy.Services;
 public interface IFantasyConstructorService
 {
 	/// <summary>
-	/// Gets an <see cref="Constructor"/> entity for each constructor.
+	/// Gets all <see cref="Constructor"/> components
 	/// </summary>
 	Task<List<Constructor>> GetConstructorData();
 }

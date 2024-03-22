@@ -39,6 +39,7 @@ public class BruteForceTeamBuilder : ITeamBuilder
 
 		return validTeams.MaxBy(t => t.Points) ?? throw new InvalidOperationException("No optimized team could be found");
 	}
+
 	private static void SetHighestScoringEligibleDriverAsTurbo(Team team)
 	{
 		var bestEligibleDriver = team.Drivers
