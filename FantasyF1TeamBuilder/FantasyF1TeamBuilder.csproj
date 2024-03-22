@@ -13,9 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Builders\Builders.csproj" />
     <ProjectReference Include="..\Configuration\Configuration.csproj" />
-    <ProjectReference Include="..\Predictors\Predictors.csproj" />
-    <ProjectReference Include="..\Services\Services.csproj" />
+    <ProjectReference Include="..\Analytics\Analytics.csproj" />
+    <ProjectReference Include="..\Results\Results.csproj" />
   </ItemGroup>
 
   <ItemGroup>

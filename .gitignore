@@ -1,5 +1,4 @@
 # Project specific ignore
-Results/*
 SampleJSON/*
 *.dev.json
 

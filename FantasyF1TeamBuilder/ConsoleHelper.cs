@@ -1,64 +1,63 @@
-﻿using Entities;
+﻿using Fantasy.Team;
 
-namespace FantasyF1TeamBuilder
+namespace FantasyF1TeamBuilder;
+
+/// <summary>
+/// Provides helper methods to output program results
+/// </summary>
+internal static class ConsoleHelper
 {
 	/// <summary>
-	/// Provides helper methods to output program results
+	/// Prints results for about a predicted team.
 	/// </summary>
-	public static class ConsoleHelper
+	internal static void PrintTeam(Team team)
 	{
-		/// <summary>
-		/// Prints results for about a predicted team.
-		/// </summary>
-		public static void PrintTeam(FantasyTeam team)
+		Console.WriteLine($"Total Score: {team.Points} --- Cost: ${team.Cost} \n");
+
+		Console.WriteLine("**** Constructors ****");
+		foreach(var constructor in team.Constructors) 
 		{
-			Console.WriteLine($"Total Score: {team.Points} --- Cost: ${team.Cost} \n");
-
-			Console.WriteLine("**** Constructors ****");
-			foreach(var constructor in team.Constructors) 
-			{
-				Console.WriteLine($"{constructor.Name} | Predicted Points: {constructor.Points}");
-			}
-
-			Console.WriteLine();
-			Console.WriteLine("**** Dirvers ****");
-			foreach (var driver in team.Drivers)
-			{
-				var driverName = driver.IsTurboDriver ? $"{driver.Name} (T)" : driver.Name;
-				Console.WriteLine($"- {driverName} | Predicted Points: {driver.Points}");
-			}
+			Console.WriteLine($"{constructor.Name} | Predicted Points: {constructor.TotalPoints}");
 		}
 
-		/// <summary>
-		/// Prompts the user for the their team's current budget.
-		/// </summary>
-		public static decimal PromptForBudget()
+		Console.WriteLine();
+		Console.WriteLine("**** Dirvers ****");
+		foreach (var driver in team.Drivers)
 		{
-			Console.WriteLine("Please enter your team's budget cap then press ENTER.");
+			var driverName = driver.IsTurboDriver ? $"{driver.Name} (T)" : driver.Name;
+			Console.WriteLine($"- {driverName} | Predicted Points: {driver.TotalPoints}");
+		}
+	}
 
-			var remainingAttempts = 3;
-			while(remainingAttempts-- > 0)
+	/// <summary>
+	/// Prompts the user for the their team's current budget.
+	/// </summary>
+	internal static decimal PromptForBudget()
+	{
+		Console.WriteLine("Please enter your team's budget cap then press ENTER.");
+
+		var remainingAttempts = 3;
+		while(remainingAttempts-- > 0)
+		{
+			var userValue = Console.ReadLine();
+			if(userValue is not null)
 			{
-				var userValue = Console.ReadLine();
-				if(userValue is not null)
+				var isSuccess = Decimal.TryParse(userValue, out var keyedDecimal);
+				if(isSuccess && keyedDecimal >= 0)
 				{
-					var isSuccess = Decimal.TryParse(userValue, out var keyedDecimal);
-					if(isSuccess && keyedDecimal >= 0)
-					{
-						return keyedDecimal;
-					}
-					else
-					{
-						Console.WriteLine("Please enter a valid budget.");
-					}
+					return keyedDecimal;
 				}
 				else
 				{
-					Console.WriteLine("Please enter your team's budget.");
+					Console.WriteLine("Please enter a valid budget.");
 				}
 			}
-
-			throw new InvalidOperationException("No valid budget provided.");
+			else
+			{
+				Console.WriteLine("Please enter your team's budget.");
+			}
 		}
+
+		throw new InvalidOperationException("No valid budget provided.");
 	}
 }
