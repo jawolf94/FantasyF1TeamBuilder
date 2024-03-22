@@ -19,10 +19,10 @@ public class CSVConstructorService : CSVReader<Constructor>, IFantasyConstructor
 	protected override string DataCategory => "Constructor";
 
 	/// <inheritdoc />
-	public Task<List<Constructor>> GetConstructorData()
+	public async Task<List<Constructor>> GetConstructorData()
 	{
-		var constructors = LoadData();
-		return Task.FromResult(constructors);
+		var constructors = await LoadData();
+		return constructors;
 	}
 
 	protected override Constructor RowAsTData(string[] row)

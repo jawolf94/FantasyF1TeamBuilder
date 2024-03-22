@@ -9,16 +9,33 @@ namespace Results.Services;
 /// </summary>
 public class CSVDriverResultService : CSVReader<DriverRaceResults>, IDriverResultService
 {
-	protected override string DataCategory => "Driver Statistics";
+	// Results from the CSV can be cached since result data changes, at most, once per week.
+	private Dictionary<string , DriverRaceResults>? _driverResultLookup = null;
 
+	/// <summary>
+	/// Initializes a new isntance of <see cref="CSVDriverResultService"/>
+	/// </summary>
 	public CSVDriverResultService(StatisticsSettings statisticsSettings)
 		: base(statisticsSettings.DriverStats) { }
 
 	/// <inheritdoc />
-	public Task<List<DriverRaceResults>> GetResults()
+	protected override string DataCategory => "Driver Results";
+
+	/// <inheritdoc />
+	public async Task<List<DriverRaceResults>> GetAllResults()
 	{
-		var statistics = LoadData();
-		return Task.FromResult(statistics);
+		await InitializeResultLookupIfNull();
+
+		return _driverResultLookup!.Values.ToList();
+	}
+
+	/// <inheritdoc />
+	public async Task<DriverRaceResults?> GetResultsFor(string driverName)
+	{
+		await InitializeResultLookupIfNull();
+
+		var hasResult = _driverResultLookup!.TryGetValue(driverName, out DriverRaceResults? result);
+		return  hasResult ? result : null;
 	}
 
 	/// <inheritdoc />
@@ -31,6 +48,14 @@ public class CSVDriverResultService : CSVReader<DriverRaceResults>, IDriverResul
 			.ToList();
 
 		return new DriverRaceResults(name, results);
+	}
 
+	private async Task InitializeResultLookupIfNull() 
+	{
+		if (_driverResultLookup is null) 
+		{
+			var driverResults = await LoadData();
+			_driverResultLookup = driverResults.ToDictionary(d => d.Name);
+		}
 	}
 }

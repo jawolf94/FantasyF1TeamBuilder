@@ -12,40 +12,24 @@ var configuration = new ApplicationConfiguration();
 var resultSettings = configuration.FantasySettings;
 var statisticsSettings = configuration.StatisticsSettings;
 
-// Prompt User for Team Budget
-var budget = ConsoleHelper.PromptForBudget();
-
 // Create fantasy data services
 var fantasyConstructorService = new CSVConstructorService(resultSettings);
 var fantasyDriverService = new CSVDriverService(resultSettings);
 
 // Create statistical services
-var driverStatisticsService = new CSVDriverResultService(statisticsSettings);
-var constructorStatisticsService = new CSVConstructorResultService(statisticsSettings);
+var driverResultService = new CSVDriverResultService(statisticsSettings);
+var constructorResultService = new CSVConstructorResultService(statisticsSettings);
 
 // Get Prediction Engines
 var driverPredictionEngine = PredictionEngineBuilder.BuildDriverEngine();
 var constructorPredictionEngine = PredictionEngineBuilder.BuildConstructorEngine();
 
-// Get drivers with predicted scores
-var drivers = await fantasyDriverService.GetDriverData();
-var driverRaceResuls = await driverStatisticsService.GetResults();
+// Predict Results
+var drivers = await PredictionHelper.BuildDriverPredictions(fantasyDriverService, driverResultService, driverPredictionEngine);
+var constructors = await PredictionHelper.BuildConstructorPredictions(fantasyConstructorService, constructorResultService, constructorPredictionEngine);
 
-//ToDo: Clean this up - use a better mechanism than Zip
-var driversAndResults = drivers.OrderBy(d => d.Name).Zip(driverRaceResuls.OrderBy(r => r.Name));
-foreach (var (driver, results) in driversAndResults) 
-{
-	driver.BasePoints = driverPredictionEngine.PredictPoints(results);
-}
-
-var constructors = await fantasyConstructorService.GetConstructorData();
-var constructorRaceResults = await constructorStatisticsService.GetResults();
-
-var constructorsAndResults = constructors.OrderBy(d => d.Name).Zip(constructorRaceResults.OrderBy(r => r.Name));
-foreach (var (constructor, results) in constructorsAndResults)
-{
-	constructor.BasePoints = constructorPredictionEngine.PredictPoints(results);
-}
+// Prompt User for Team Budget
+var budget = ConsoleHelper.PromptForBudget();
 
 // Build Team
 var teamOptimizer = new BruteForceTeamBuilder();

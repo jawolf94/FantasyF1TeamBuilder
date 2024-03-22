@@ -19,10 +19,10 @@ public class CSVDriverService : CSVReader<Driver>, IFantasyDriverService
 	protected override string DataCategory => "Driver";
 
 	/// <inheritdoc />
-	public Task<List<Driver>> GetDriverData()
+	public async Task<List<Driver>> GetDriverData()
 	{
-		var driverData = LoadData();
-		return Task.FromResult(driverData);
+		var driverData = await LoadData();
+		return driverData;
 	}
 
 	/// <inheritdoc />

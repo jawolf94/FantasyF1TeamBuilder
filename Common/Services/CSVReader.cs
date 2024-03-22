@@ -28,17 +28,17 @@ public abstract class CSVReader<TData>
 	protected string FilePath { get; init; }
 
 	/// <summary>
-	/// Name of result data obtained from the CSV
+	/// Name of data obtained from the CSV
 	/// </summary>
 	protected abstract string DataCategory { get; }
 
 	/// <summary>
-	/// Reads result data from a file as <see cref="TData"/>.
+	/// Reads data from a file as <see cref="TData"/>.
 	/// </summary>
-	protected List<TData> LoadData()
+	protected async Task<List<TData>> LoadData()
 	{
 		// ToDo: Check if CSV is structured as expected
-		return File.ReadAllLines(FilePath)
+		return (await File.ReadAllLinesAsync(FilePath))
 			.Skip(1) // Skip header row
 			.Select(row => row.Split(','))
 			.Select(RowAsTData)
