@@ -12,15 +12,16 @@ public class Driver : TeamComponent, ICloneable
 	/// <summary>
 	/// Initializes a new instance of a <see cref="Driver"/> with no points scored.
 	/// </summary>
-	public Driver(string name, decimal cost)
-		: this(name, cost, 0) { }
+	public Driver(string name, decimal cost, bool isSelected)
+		: this(name, cost, 0, isSelected) { }
 
 	/// <summary>
 	/// Initializes a new instance of a <see cref="Driver"/>.
 	/// </summary>
-	public Driver(string name, decimal cost, double points)
-		: base(name, cost)
+	public Driver(string name, decimal cost, double points, bool isSelected)
+		: base(name, cost, isSelected)
 	{
+		// ToDo remove this constructor, points can be publicly set.
 		BasePoints = points;
 	}
 
@@ -42,7 +43,7 @@ public class Driver : TeamComponent, ICloneable
 	/// <inheritdoc />
 	public object Clone()
 	{
-		return new Driver(Name, Cost, BasePoints)
+		return new Driver(Name, Cost, BasePoints, IsSelected)
 		{
 			PointsModifier = PointsModifier
 		};

@@ -10,10 +10,11 @@ public abstract class TeamComponent : IValidatable
 	/// <summary>
 	/// Initializes a new instance of <see cref="TeamComponent"/>
 	/// </summary>
-	protected TeamComponent(string name, decimal cost)
+	protected TeamComponent(string name, decimal cost, bool isSelected)
 	{
 		Name = name;
 		Cost = cost;
+		IsSelected = isSelected;
 	}
 
 	/// <summary>
@@ -25,6 +26,11 @@ public abstract class TeamComponent : IValidatable
 	/// Cost of the entity (in millions of dollars)
 	/// </summary>
 	public decimal Cost { get; }
+
+	/// <summary>
+	/// True if this component is on the current fantasty team.
+	/// </summary>
+	public bool IsSelected { get; }
 
 	/// <summary>
 	/// True if the entity is valid.

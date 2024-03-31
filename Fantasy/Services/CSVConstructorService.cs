@@ -13,6 +13,7 @@ public class CSVConstructorService : CSVReader<Constructor>, IFantasyConstructor
 	// Column indexes for reading CSV files.
 	private const int ConstructorName = 0;
 	private const int ConstructorCost = 1;
+	private const int ConstructorIsSelected = 2;
 
 	/// <summary>
 	/// Creates a new instance of <see cref="CSVConstructorService"/>.
@@ -35,7 +36,8 @@ public class CSVConstructorService : CSVReader<Constructor>, IFantasyConstructor
 		// Parse name and cost data
 		var name = row[ConstructorName];
 		var cost = ParseString.AsDecimal(row[ConstructorCost], context: nameof(ConstructorCost));
+		var isSelected = ParseString.AsBool(row[ConstructorIsSelected], context: nameof(ConstructorIsSelected));
 
-		return new Constructor(name, cost);
+		return new Constructor(name, cost, isSelected);
 	}
 }

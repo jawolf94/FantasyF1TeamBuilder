@@ -13,6 +13,7 @@ public class CSVDriverService : CSVReader<Driver>, IFantasyDriverService
 	// Column indexes for reading CSV files.
 	private const int DriverName = 0;
 	private const int DriverCost = 1;
+	private const int DriverIsSelected = 2;
 
 	/// <summary>
 	/// Creates a new instance of <see cref="CSVDriverService"/>.
@@ -36,7 +37,8 @@ public class CSVDriverService : CSVReader<Driver>, IFantasyDriverService
 		// Parse name and cost data
 		var name = row[DriverName];
 		var cost = ParseString.AsDecimal(row[DriverCost], context: nameof(DriverCost));
+		var isSelected = ParseString.AsBool(row[DriverIsSelected], nameof(DriverIsSelected));
 
-		return new Driver(name, cost);
+		return new Driver(name, cost, isSelected);
 	}
 }
