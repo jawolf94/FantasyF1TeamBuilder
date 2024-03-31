@@ -9,9 +9,6 @@ namespace Results.Services;
 /// </summary>
 public class CSVDriverResultService : CSVReader<DriverRaceResults>, IDriverResultService
 {
-	// Results from the CSV can be cached since result data changes, at most, once per week.
-	private Dictionary<string , DriverRaceResults>? _driverResultLookup = null;
-
 	/// <summary>
 	/// Initializes a new isntance of <see cref="CSVDriverResultService"/>
 	/// </summary>
@@ -24,18 +21,14 @@ public class CSVDriverResultService : CSVReader<DriverRaceResults>, IDriverResul
 	/// <inheritdoc />
 	public async Task<List<DriverRaceResults>> GetAllResults()
 	{
-		await InitializeResultLookupIfNull();
-
-		return _driverResultLookup!.Values.ToList();
+		return await LoadData();
 	}
 
 	/// <inheritdoc />
 	public async Task<DriverRaceResults?> GetResultsFor(string driverName)
 	{
-		await InitializeResultLookupIfNull();
-
-		var hasResult = _driverResultLookup!.TryGetValue(driverName, out DriverRaceResults? result);
-		return  hasResult ? result : null;
+		var matchingResults = await LoadData(result => MatchesDriverName(result, driverName));
+		return  matchingResults.FirstOrDefault();
 	}
 
 	/// <inheritdoc />
@@ -50,12 +43,6 @@ public class CSVDriverResultService : CSVReader<DriverRaceResults>, IDriverResul
 		return new DriverRaceResults(name, results);
 	}
 
-	private async Task InitializeResultLookupIfNull() 
-	{
-		if (_driverResultLookup is null) 
-		{
-			var driverResults = await LoadData();
-			_driverResultLookup = driverResults.ToDictionary(d => d.Name);
-		}
-	}
+	private static bool MatchesDriverName(DriverRaceResults driverRaceResults, string name)
+		=> string.Equals(driverRaceResults.Name, name, StringComparison.OrdinalIgnoreCase);
 }

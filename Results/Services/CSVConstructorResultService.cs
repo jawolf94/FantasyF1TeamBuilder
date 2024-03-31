@@ -9,9 +9,6 @@ namespace Results.Services;
 /// </summary>
 public class CSVConstructorResultService : CSVReader<ConstructorRaceResults>, IConstructorResultService
 {
-	// Results from the CSV can be cached since result data changes, at most, once per week.
-	private Dictionary<string, ConstructorRaceResults>? _constructorResultLookup;
-
 	/// <summary>
 	/// Inititalizes a new isntance of <see cref="CSVConstructorResultService"/>
 	/// </summary>
@@ -24,18 +21,14 @@ public class CSVConstructorResultService : CSVReader<ConstructorRaceResults>, IC
 	/// <inheritdoc />
 	public async Task<List<ConstructorRaceResults>> GetAllResults()
 	{
-		await InitializeResultLookupIfNull();
-
-		return _constructorResultLookup!.Values.ToList();
+		return await LoadData();
 	}
 
 	/// <inheritdoc />
 	public async Task<ConstructorRaceResults?> GetResultsFor(string constructorName)
 	{
-		await InitializeResultLookupIfNull();
-
-		var hasResult = _constructorResultLookup!.TryGetValue(constructorName, out var result);
-		return hasResult ? result : null;
+		var matchingResults = await LoadData(result => MatchesConstructorName(result, constructorName));
+		return matchingResults.FirstOrDefault();
 	}
 
 	/// <inheritdoc />
@@ -50,13 +43,6 @@ public class CSVConstructorResultService : CSVReader<ConstructorRaceResults>, IC
 		return new ConstructorRaceResults(name, results);
 	}
 
-	private async Task InitializeResultLookupIfNull() 
-	{
-		if (_constructorResultLookup is null) 
-		{
-			var constructorResults = await LoadData();
-			_constructorResultLookup = constructorResults.ToDictionary(c => c.Name);
-		}
-	}
-
+	private static bool MatchesConstructorName(ConstructorRaceResults constructorResults, string name) 
+		=> string.Equals(constructorResults.Name, name, StringComparison.OrdinalIgnoreCase);
 }

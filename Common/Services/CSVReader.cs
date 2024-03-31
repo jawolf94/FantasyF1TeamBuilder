@@ -37,12 +37,15 @@ public abstract class CSVReader<TData>
 	/// </summary>
 	protected async Task<List<TData>> LoadData()
 	{
-		// ToDo: Check if CSV is structured as expected
-		return (await File.ReadAllLinesAsync(FilePath))
-			.Skip(1) // Skip header row
-			.Select(row => row.Split(','))
-			.Select(RowAsTData)
-			.ToList();
+		return await LoadDataWithAppliedFilter(AlwaysInclude);
+	}
+
+	/// <summary>
+	/// Reads data which matches the filter from a file as <see cref="TData"/>.
+	/// </summary>
+	protected async Task<List<TData>> LoadData(Func<TData, bool> resultFilter) 
+	{
+		return await LoadDataWithAppliedFilter(resultFilter);
 	}
 
 	/// <summary>
@@ -50,4 +53,20 @@ public abstract class CSVReader<TData>
 	/// </summary>
 	/// <param name="row">A row of data from the csv file. Each position in the array represents a column in the row.</param>
 	protected abstract TData RowAsTData(string[] row);
+
+	private async Task<List<TData>> LoadDataWithAppliedFilter(Func<TData, bool> filter) 
+	{
+		// ToDo: Check if CSV is structured as expected
+
+		var loadedCSVRows = await File.ReadAllLinesAsync(FilePath);
+
+		return loadedCSVRows
+			.Skip(1) // Skip header row
+			.Select(row => row.Split(','))
+			.Select(RowAsTData)
+			.Where(filter)
+			.ToList();
+	}
+
+	private bool AlwaysInclude(TData _) => true;
 }
