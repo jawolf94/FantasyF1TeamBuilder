@@ -14,13 +14,8 @@ public static class ParseString
 	/// <exception cref="FormatException">Thrown if the string cannot be parsed to a decimal.</exception>
 	public static decimal AsDecimal(string stringValue, string context = "string") 
 	{
-		var success = decimal.TryParse(stringValue, out var result);
-		if(success) 
-		{
-			return result;
-		}
-
-		throw new FormatException($"Could not format {context} as a decimal. Unexpected format.");
+		var isSuccessful = decimal.TryParse(stringValue, out var result);
+		return isSuccessful ? result : throw FormatExceptionWithContext("decimal", context);
 	}
 
 	/// <summary>
@@ -29,15 +24,26 @@ public static class ParseString
 	/// <param name="stringValue">The string to parse.</param>
 	/// <param name="context">The context in which this is parsed. Used for error reporting.</param>
 	/// <returns>An int value parsed from the string.</returns>
-	/// <exception cref="FormatException">Thrown if the string cannot be parsed to an in.</exception>
+	/// <exception cref="FormatException">Thrown if the string cannot be parsed to an int.</exception>
 	public static int AsInt(string stringValue, string context = "string")
 	{
-		var success = int.TryParse(stringValue, out var result);
-		if (success)
-		{
-			return result;
-		}
-
-		throw new FormatException($"Could not format {context} as a int. Unexpected format.");
+		var isSuccessful = int.TryParse(stringValue, out var result);
+		return isSuccessful ? result : throw FormatExceptionWithContext("int", context);
 	}
+
+	/// <summary>
+	/// Parses a string to a bool.
+	/// </summary>
+	/// <param name="stringValue">The string to parse.</param>
+	/// <param name="context">The context in which this is parsed. Used for error reporting.</param>
+	/// <returns>An bool value parsed from the string.</returns>
+	/// <exception cref="FormatException">Thrown if the string cannot be parsed to a bool.</exception>
+	public static bool AsBool(string stringValue, string context= "string") 
+	{
+		var isSuccessful = bool.TryParse(stringValue, out var result);
+		return isSuccessful ? result : throw FormatExceptionWithContext("bool", context);
+	}
+
+	private static FormatException FormatExceptionWithContext(string parseType, string parseContext) => 
+		new FormatException($"Could not format {parseContext} as {parseType}. Unexpected format.");
 }
