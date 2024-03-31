@@ -9,6 +9,8 @@ namespace Results.Services;
 /// </summary>
 public class CSVDriverResultService : CSVReader<DriverRaceResults>, IDriverResultService
 {
+	private const int HeaderColumnIndex = 0;
+
 	/// <summary>
 	/// Initializes a new isntance of <see cref="CSVDriverResultService"/>
 	/// </summary>
@@ -34,7 +36,7 @@ public class CSVDriverResultService : CSVReader<DriverRaceResults>, IDriverResul
 	/// <inheritdoc />
 	protected override DriverRaceResults RowAsTData(string[] row)
 	{
-		string name = row[0];
+		string name = row[HeaderColumnIndex];
 
 		var results = row.Skip(1)
 			.Select(int.Parse)

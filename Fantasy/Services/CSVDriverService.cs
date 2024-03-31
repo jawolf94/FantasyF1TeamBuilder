@@ -9,6 +9,9 @@ namespace Fantasy.Services;
 /// </summary>
 public class CSVDriverService : CSVReader<Driver>, IFantasyDriverService
 {
+	private const int NameColumnIndex = 0;
+	private const int CostColumnIndex = 1;
+
 	/// <summary>
 	/// Creates a new instance of <see cref="CSVDriverService"/>.
 	/// </summary>
@@ -31,8 +34,8 @@ public class CSVDriverService : CSVReader<Driver>, IFantasyDriverService
 		//ToDo: Add some error handling for CSV formatting
 
 		// Parse name and cost data
-		var name = row[0];
-		var cost = decimal.Parse(row[1]);
+		var name = row[NameColumnIndex];
+		var cost = decimal.Parse(row[CostColumnIndex]);
 
 		return new Driver(name, cost);
 	}

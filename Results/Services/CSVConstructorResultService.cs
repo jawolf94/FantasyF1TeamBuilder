@@ -9,6 +9,8 @@ namespace Results.Services;
 /// </summary>
 public class CSVConstructorResultService : CSVReader<ConstructorRaceResults>, IConstructorResultService
 {
+	private const int NameColumnIndex = 0;
+
 	/// <summary>
 	/// Inititalizes a new isntance of <see cref="CSVConstructorResultService"/>
 	/// </summary>
@@ -34,7 +36,7 @@ public class CSVConstructorResultService : CSVReader<ConstructorRaceResults>, IC
 	/// <inheritdoc />
 	protected override ConstructorRaceResults RowAsTData(string[] row)
 	{
-		string name = row[0];
+		string name = row[NameColumnIndex];
 
 		var results = row.Skip(1)
 			.Select(int.Parse)
