@@ -1,4 +1,5 @@
-﻿using Common.Services;
+﻿using Common;
+using Common.Services;
 using Configuration;
 using Results.Data;
 
@@ -39,7 +40,7 @@ public class CSVDriverResultService : CSVReader<DriverRaceResults>, IDriverResul
 		string name = row[HeaderColumnIndex];
 
 		var results = row.Skip(1)
-			.Select(int.Parse)
+			.Select(ResultAsInt)
 			.ToList();
 
 		return new DriverRaceResults(name, results);
@@ -47,4 +48,7 @@ public class CSVDriverResultService : CSVReader<DriverRaceResults>, IDriverResul
 
 	private static bool MatchesDriverName(DriverRaceResults driverRaceResults, string name)
 		=> string.Equals(driverRaceResults.Name, name, StringComparison.OrdinalIgnoreCase);
+
+	private static int ResultAsInt(string result)
+		=> ParseString.AsInt(result, context: "DriverResult");
 }

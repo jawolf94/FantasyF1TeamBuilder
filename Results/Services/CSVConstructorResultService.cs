@@ -1,4 +1,5 @@
-﻿using Common.Services;
+﻿using Common;
+using Common.Services;
 using Configuration;
 using Results.Data;
 
@@ -39,7 +40,7 @@ public class CSVConstructorResultService : CSVReader<ConstructorRaceResults>, IC
 		string name = row[NameColumnIndex];
 
 		var results = row.Skip(1)
-			.Select(int.Parse)
+			.Select(ResultAsInt)
 			.ToList();
 
 		return new ConstructorRaceResults(name, results);
@@ -47,4 +48,7 @@ public class CSVConstructorResultService : CSVReader<ConstructorRaceResults>, IC
 
 	private static bool MatchesConstructorName(ConstructorRaceResults constructorResults, string name) 
 		=> string.Equals(constructorResults.Name, name, StringComparison.OrdinalIgnoreCase);
+
+	private static int ResultAsInt(string result)
+		=> ParseString.AsInt(result, context: "ConstructorResult");
 }

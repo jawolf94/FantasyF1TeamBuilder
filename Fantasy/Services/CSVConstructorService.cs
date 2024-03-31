@@ -1,4 +1,5 @@
-﻿using Common.Services;
+﻿using Common;
+using Common.Services;
 using Configuration;
 using Fantasy.Team;
 
@@ -9,8 +10,9 @@ namespace Fantasy.Services;
 /// </summary>
 public class CSVConstructorService : CSVReader<Constructor>, IFantasyConstructorService
 {
-	private const int NameColumnIndex = 0;
-	private const int CostColumnIndex = 1;
+	// Column indexes for reading CSV files.
+	private const int ConstructorName = 0;
+	private const int ConstructorCost = 1;
 
 	/// <summary>
 	/// Creates a new instance of <see cref="CSVConstructorService"/>.
@@ -30,11 +32,9 @@ public class CSVConstructorService : CSVReader<Constructor>, IFantasyConstructor
 
 	protected override Constructor RowAsTData(string[] row)
 	{
-		//ToDo: Add some error handling for CSV formatting
-
 		// Parse name and cost data
-		var name = row[NameColumnIndex];
-		var cost = decimal.Parse(row[CostColumnIndex]);
+		var name = row[ConstructorName];
+		var cost = ParseString.AsDecimal(row[ConstructorCost], context: nameof(ConstructorCost));
 
 		return new Constructor(name, cost);
 	}
