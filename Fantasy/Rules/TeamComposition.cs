@@ -11,7 +11,7 @@ public static class TeamComposition
 	public const int NumberOfRequiredDrivers = 5;
 
 	/// <summary>
-	/// Number of constructors allowed per team.
+	/// Number of constructors required per team.
 	/// </summary>
 	public const int NumberOfRequiredConstructors = 2;
 }
