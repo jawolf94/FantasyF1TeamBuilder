@@ -6,7 +6,7 @@
 public static class TeamComposition
 {
 	/// <summary>
-	/// Number of drivers allowed per team.
+	/// Number of drivers required per team.
 	/// </summary>
 	public const int NumberOfRequiredDrivers = 5;
 
