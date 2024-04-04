@@ -9,24 +9,16 @@ public class Constructor : TeamComponent, ICloneable
 	/// Initializes a new instance of <see cref="Constructor"/>
 	/// </summary>
 	public Constructor(string name, decimal cost, bool isSelected)
-	: this(name, cost, 0, isSelected)
-	{
-	}
-
-	/// <summary>
-	/// Initializes a new instance of <see cref="Constructor"/>
-	/// </summary>
-	public Constructor(string name, decimal cost, double points, bool isSelected)
-	: base(name, cost, isSelected)
-	{
-		// ToDo remove this constructor, points can be publicly set.
-		BasePoints = points;
-	}
+		: base(name, cost, isSelected)
+	{ }
 
 	/// <inheritdoc />
 	public object Clone()
 	{
-		return new Constructor(Name, Cost, BasePoints, IsSelected);
+		return new Constructor(Name, Cost, IsSelected)
+		{
+			BasePoints = BasePoints
+		};
 	}
 
 	/// <inheritdoc />

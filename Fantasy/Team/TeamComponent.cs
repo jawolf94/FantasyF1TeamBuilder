@@ -45,7 +45,7 @@ public abstract class TeamComponent : IValidatable
 	/// <summary>
 	/// Fantasy points awarded before modifiers
 	/// </summary>
-	public double BasePoints { get; set; }
+	public double BasePoints { get; set; } = 0;
 
 	/// <summary>
 	/// Returns true if the data represented by this entity is valid according to game rules.
