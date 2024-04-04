@@ -1,4 +1,5 @@
-﻿using Common.Services;
+﻿using Common;
+using Common.Services;
 using Configuration;
 using Fantasy.Team;
 
@@ -9,6 +10,11 @@ namespace Fantasy.Services;
 /// </summary>
 public class CSVDriverService : CSVReader<Driver>, IFantasyDriverService
 {
+	// Column indexes for reading CSV files.
+	private const int DriverName = 0;
+	private const int DriverCost = 1;
+	private const int DriverIsSelected = 2;
+
 	/// <summary>
 	/// Creates a new instance of <see cref="CSVDriverService"/>.
 	/// </summary>
@@ -28,12 +34,11 @@ public class CSVDriverService : CSVReader<Driver>, IFantasyDriverService
 	/// <inheritdoc />
 	protected override Driver RowAsTData(string[] row)
 	{
-		//ToDo: Add some error handling for CSV formatting
-
 		// Parse name and cost data
-		var name = row[0];
-		var cost = decimal.Parse(row[1]);
+		var name = row[DriverName];
+		var cost = ParseString.AsDecimal(row[DriverCost], context: nameof(DriverCost));
+		var isSelected = ParseString.AsBool(row[DriverIsSelected], nameof(DriverIsSelected));
 
-		return new Driver(name, cost);
+		return new Driver(name, cost, isSelected);
 	}
 }

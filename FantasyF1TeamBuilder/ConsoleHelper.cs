@@ -12,7 +12,9 @@ internal static class ConsoleHelper
 	/// </summary>
 	internal static void PrintTeam(Team team)
 	{
-		Console.WriteLine($"Total Score: {team.Points} --- Cost: ${team.Cost} \n");
+		Console.WriteLine();
+		Console.WriteLine($"Total Score: {team.Points} --- Cost: ${team.Cost}");
+		Console.WriteLine($"Number of Transfers: {team.NumberOfTransfers} \n");
 
 		Console.WriteLine("**** Constructors ****");
 		foreach(var constructor in team.Constructors) 

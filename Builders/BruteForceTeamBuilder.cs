@@ -2,6 +2,8 @@
 using Fantasy.Rules;
 using Fantasy.Team;
 
+using static Fantasy.Rules.TeamComposition;
+
 namespace Builders;
 
 /// <summary>
@@ -66,7 +68,7 @@ public class BruteForceTeamBuilder : ITeamBuilder
 
 	private static IEnumerable<Driver[]> PossibleDriverCombinations(IReadOnlyList<Driver> drivers)
 	{
-		if (drivers.Count < Team.NumberOfRequiredDrivers)
+		if (drivers.Count < NumberOfRequiredDrivers)
 		{
 			// Not enough drivers - no combinations
 			yield break;
@@ -101,7 +103,7 @@ public class BruteForceTeamBuilder : ITeamBuilder
 
 	private static IEnumerable<Constructor[]> PossibleConstructorCombinations(IReadOnlyList<Constructor> constructors)
 	{
-		if (constructors.Count < Team.NumberOfRequiredConstructors)
+		if (constructors.Count < NumberOfRequiredConstructors)
 		{
 			// Not enough constructors - no combinations
 			yield break;

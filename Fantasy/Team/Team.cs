@@ -1,5 +1,8 @@
 ﻿using Fantasy.Rules;
 
+using static Fantasy.Rules.TeamComposition;
+using static Fantasy.Rules.TransferAllowances;
+
 namespace Fantasy.Team;
 
 /// <summary>
@@ -7,16 +10,6 @@ namespace Fantasy.Team;
 /// </summary>
 public class Team : IValidatable
 {
-	/// <summary>
-	/// Number of drivers allowed per team.
-	/// </summary>
-	public const int NumberOfRequiredDrivers = 5;
-
-	/// <summary>
-	/// Number of constructors allowed per team.
-	/// </summary>
-	public const int NumberOfRequiredConstructors = 2;
-
 	/// <summary>
 	/// Creates a new instance of <see cref="Team"/>
 	/// </summary>
@@ -36,14 +29,19 @@ public class Team : IValidatable
 	public IReadOnlyList<Constructor> Constructors => InternalConstructors;
 
 	/// <summary>
+	/// The number of transfers required to create this team.
+	/// </summary>
+	public int NumberOfTransfers => NumberOfDriverTransfers + NumberOfConstructorTransfers;
+
+	/// <summary>
 	/// Total points scored by the team.
 	/// </summary>
-	public double Points => TotalDriverPoints + TotalConstructorPoints;
+	public double Points => CalculateTotalPoints();
 
 	/// <summary>
 	/// Total cost of the team.
 	/// </summary>
-	public decimal Cost => TotalDriverCost + TotalConstructorCost;
+	public decimal Cost => CalculateTotalCost();
 
 	/// <inheritdoc />
 	public bool IsValid => IsTeamValid();
@@ -63,15 +61,9 @@ public class Team : IValidatable
 	/// </summary>
 	protected List<Constructor> InternalConstructors { get; } = new List<Constructor>();
 
-	private double TotalDriverPoints => Drivers.Sum(d => d.TotalPoints);
+	private int NumberOfDriverTransfers => Drivers.Where(IsTransfer).Count();
 
-	private decimal TotalDriverCost => Drivers.Sum(d => d.Cost);
-
-
-	private double TotalConstructorPoints => InternalConstructors.Sum(c => c.TotalPoints);
-
-	private decimal TotalConstructorCost => InternalConstructors.Sum(c => c.Cost);
-
+	private int NumberOfConstructorTransfers => Constructors.Where(IsTransfer).Count();
 
 	/// <summary>
 	/// Add a driver to the team.
@@ -157,4 +149,23 @@ public class Team : IValidatable
 
 		return underBudget && oneTurboDriver && correctDriverCount && correctConstructorCount;
 	}
+
+	private double CalculateTotalPoints() 
+	{
+		var totalPointsFromDrivers = Drivers.Sum(d => d.TotalPoints);
+		var totalPointsFromConstructors = Constructors.Sum(c => c.TotalPoints);
+		var pointsLostFromTransfers = CalculateCostOfTransfers(NumberOfTransfers);
+
+		return totalPointsFromDrivers + totalPointsFromConstructors - pointsLostFromTransfers;
+	}
+
+	private decimal CalculateTotalCost() 
+	{
+		var totalCostFromDrivers = Drivers.Sum(d => d.Cost);
+		var totalCostFromConstructors = Constructors.Sum(c => c.Cost);
+
+		return totalCostFromDrivers + totalCostFromConstructors;
+	}
+
+	private bool IsTransfer(TeamComponent component) => !component.IsSelected;
 }

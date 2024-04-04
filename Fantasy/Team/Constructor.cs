@@ -8,24 +8,17 @@ public class Constructor : TeamComponent, ICloneable
 	/// <summary>
 	/// Initializes a new instance of <see cref="Constructor"/>
 	/// </summary>
-	public Constructor(string name, decimal cost)
-	: this(name, cost, 0)
-	{
-	}
-
-	/// <summary>
-	/// Initializes a new instance of <see cref="Constructor"/>
-	/// </summary>
-	public Constructor(string name, decimal cost, double points)
-	: base(name, cost)
-	{
-		BasePoints = points;
-	}
+	public Constructor(string name, decimal cost, bool isSelected)
+		: base(name, cost, isSelected)
+	{ }
 
 	/// <inheritdoc />
 	public object Clone()
 	{
-		return new Constructor(Name, Cost, BasePoints);
+		return new Constructor(Name, Cost, IsSelected)
+		{
+			BasePoints = BasePoints
+		};
 	}
 
 	/// <inheritdoc />

@@ -12,17 +12,8 @@ public class Driver : TeamComponent, ICloneable
 	/// <summary>
 	/// Initializes a new instance of a <see cref="Driver"/> with no points scored.
 	/// </summary>
-	public Driver(string name, decimal cost)
-		: this(name, cost, 0) { }
-
-	/// <summary>
-	/// Initializes a new instance of a <see cref="Driver"/>.
-	/// </summary>
-	public Driver(string name, decimal cost, double points)
-		: base(name, cost)
-	{
-		BasePoints = points;
-	}
+	public Driver(string name, decimal cost, bool isSelected)
+		: base(name, cost, isSelected) { }
 
 	/// <summary>
 	/// Points modifier currently applied to the driver.
@@ -42,8 +33,9 @@ public class Driver : TeamComponent, ICloneable
 	/// <inheritdoc />
 	public object Clone()
 	{
-		return new Driver(Name, Cost, BasePoints)
+		return new Driver(Name, Cost, IsSelected)
 		{
+			BasePoints = BasePoints,
 			PointsModifier = PointsModifier
 		};
 	}
